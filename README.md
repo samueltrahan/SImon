@@ -16,7 +16,7 @@ A game of flashing lights in which the player must repeat random sequences of li
 
 ### _Technologies Used_
 
-Html
+HTML
 CSS
 JS
 Github
