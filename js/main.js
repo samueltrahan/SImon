@@ -8,7 +8,7 @@ let gameArray = [];
 let matchArray;
 let turn = false;
 let winner;
-let count = 0;
+let counter = 0;
 
 //cached Elements
 const msgEl = document.getElementById('message');
@@ -79,7 +79,7 @@ function startGame(e) {
     if(count === 0) {
         userArray = [];
         getRandomColor();
-        flashTempo();
+        blinkColor();
     }
 }
 
@@ -96,7 +96,7 @@ function init() {
  gameArray = [];
  turn = false; 
  winner = false;
- //render();
+ render();
 }
 function firstColor() {
     circleOne.style.backgroundColor = "#00008B";
@@ -125,41 +125,74 @@ function fourthColor() {
 
 function getRandomColor() {
     gameArray.push(Math.floor(Math.random() * 4) + 1);
-    count++;
-    flashColor();
+    counter++;
+    blinkColor();
 }
 
-function flashColor() {
-    gameArray.forEach(function(flash, idx) {
+function blinkColor() {
+    gameArray.forEach(function(blink, idx) {
         setTimeout(function() {
-        if(flash === 1) 
+        if(blink === 1) 
         firstColor();
-        if(flash === 2)
+        if(blink === 2)
         secondColor();
-        if(flash === 3)
+        if(blink === 3)
         thirdColor();
-        if(flash === 4)
+        if(blink === 4)
         fourthColor();
     }, (idx + 1) * 700);
-    console.log(idx + 1);
 });
 setTimeout(function() {
     msgEl.innerHTML = 'Your Turn!';
-    userPlay();
-}, (count + 1) * 1000);
+    userTurn();
+}, (counter + 1) * 1000);
 }
 
-
-function userPlay() {
+function userTurn() {
     if(turn === true) {
+        if(userArray.length === gameArray.length) {
+            checkUser();
+        } else 
+        endGame();
+    }
+};
+
+function checkUser() {
+    turn = false;
+    arrayCheck();
+    if(matchArray === true) {
         userArray = [];
+        msgEl.innerHTML = `Congrats! You passed level ${counter}!`;
     } else 
-    turn === false;
+    endGame();
 }
+
+function checkArray() {
+    for(let i = 0; i < counter.length; i++) {
+        if(userArray.length === gameArray.length) {
+            matchArray = true;
+        }else 
+        matchArray = false;
+    }
+}
+
+
 
 function clearColors() {
     circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
     circleTwo.style.backgroundColor = 'rgb(77, 165, 96)';
     circleThree.style.backgroundColor = 'rgb(230, 97, 97)';
     circleFour.style.backgroundColor = 'rgb(243, 243, 106)';
+}
+
+
+
+
+function render() {
+    if(userArray.length === 5) {
+        msgEl.innerHTML = `You got 5 in a row!!! Keep it up!`
+    }else if(userArray.length === 10) {
+        `You got 10 in a row! Got a memory on you kid!`
+    }
+
 }
