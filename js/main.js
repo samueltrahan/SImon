@@ -8,7 +8,8 @@ let gameArray = [];
 let turn = false;
 let winner;
 let count = 0;
-let matchArray = [];
+let matchArray;
+let tempo;
 
 //cached Elements
 const msgEl = document.getElementById('message');
@@ -16,7 +17,6 @@ const resetDiv = document.getElementById('resetDiv');
 const resetBtn = document.getElementById('resetBtn');
 const startDiv = document.getElementById('startDiv');
 const startBtn = document.getElementById('startBtn');
-const colorBtn = document.querySelectorAll('.colorButton');
 const circleOne = document.getElementById('cir1');
 const circleTwo = document.getElementById('cir2');
 const circleThree = document.getElementById('cir3');
@@ -43,28 +43,28 @@ circleOne.addEventListener('click', function(e) {
     circleOne.style.backgroundColor = "#00008B";
     setTimeout(function() {
         clearColors();
-    }, 600);
+    }, 500);
 });
 circleTwo.addEventListener('click', function(e) {
     userArray.push(2);
     circleTwo.style.backgroundColor = "#006400";
     setTimeout(function() {
         clearColors();
-    }, 600);
+    }, 500);
 });
 circleThree.addEventListener('click', function(e) {
     userArray.push(3);
     circleThree.style.backgroundColor = "#8b0000";
     setTimeout(function() {
         clearColors();
-    }, 600);
+    }, 500);
 });
 circleFour.addEventListener('click', function(e) {
     userArray.push(4);
     circleFour.style.backgroundColor = "#CCCC00";
     setTimeout(function() {
         clearColors();
-    }, 600);
+    }, 500);
 });
 
 
@@ -103,6 +103,32 @@ function getRandomColor() {
     gameArray.push(Math.floor(Math.random() * 4) + 1);
     count++;
 }
+
+function firstColor() {
+    circleOne.style.backgroundColor = "#00008B";
+    setTimeout(function() {
+        clearColors();
+    }, tempo);
+}
+function secondColor() {
+    circleTwo.style.backgroundColor = "#006400";
+    setTimeout(function() {
+        clearColors();
+    }, tempo);
+}
+function thirdColor() {
+    circleThree.style.backgroundColor = "#8b0000";
+    setTimeout(function() {
+        clearColors();
+    }, tempo);
+}
+function fourthColor() {
+    circleFour.style.backgroundColor = "#CCCC00";
+    setTimeout(function() {
+        clearColors();
+    }, tempo);
+}
+
 
 function clearColors() {
     circleOne.style.backgroundColor = 'rgb(76, 116, 247)';

@@ -35,7 +35,14 @@
     background-color: rgb(243, 243, 106);
 }
 
-
+#score {
+    border: solid black;
+    border-radius: 50%;
+    float: right;
+    width: 150px;
+    text-align: center;
+    height: 75px;
+}
 
 #resetBtn {
     align-items: center;
