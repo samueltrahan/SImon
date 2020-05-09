@@ -5,11 +5,10 @@ const colorBoard = ["blue", "green", "red", "yellow"];
 // state variable //
 let userArray = [];
 let gameArray = [];
+let matchArray;
 let turn = false;
 let winner;
 let count = 0;
-let matchArray;
-let tempo;
 
 //cached Elements
 const msgEl = document.getElementById('message');
@@ -80,6 +79,7 @@ function startGame(e) {
     if(count === 0) {
         userArray = [];
         getRandomColor();
+        flashTempo();
     }
 }
 
@@ -96,39 +96,66 @@ function init() {
  gameArray = [];
  turn = false; 
  winner = false;
- render();
+ //render();
 }
-
-function getRandomColor() {
-    gameArray.push(Math.floor(Math.random() * 4) + 1);
-    count++;
-}
-
 function firstColor() {
     circleOne.style.backgroundColor = "#00008B";
     setTimeout(function() {
         clearColors();
-    }, tempo);
+    }, 700);
 }
 function secondColor() {
     circleTwo.style.backgroundColor = "#006400";
     setTimeout(function() {
         clearColors();
-    }, tempo);
+    }, 700);
 }
 function thirdColor() {
     circleThree.style.backgroundColor = "#8b0000";
     setTimeout(function() {
         clearColors();
-    }, tempo);
+    }, 700);
 }
 function fourthColor() {
     circleFour.style.backgroundColor = "#CCCC00";
     setTimeout(function() {
         clearColors();
-    }, tempo);
+    }, 700);
 }
 
+function getRandomColor() {
+    gameArray.push(Math.floor(Math.random() * 4) + 1);
+    count++;
+    flashColor();
+}
+
+function flashColor() {
+    gameArray.forEach(function(flash, idx) {
+        setTimeout(function() {
+        if(flash === 1) 
+        firstColor();
+        if(flash === 2)
+        secondColor();
+        if(flash === 3)
+        thirdColor();
+        if(flash === 4)
+        fourthColor();
+    }, (idx + 1) * 700);
+    console.log(idx + 1);
+});
+setTimeout(function() {
+    msgEl.innerHTML = 'Your Turn!';
+    userPlay();
+}, (count + 1) * 1000);
+}
+
+
+function userPlay() {
+    if(turn === true) {
+        userArray = [];
+    } else 
+    turn === false;
+}
 
 function clearColors() {
     circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
