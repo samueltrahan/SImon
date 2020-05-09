@@ -1,6 +1,6 @@
 // constants
 
-
+const colorBoard = ["blue", "green", "red", "yellow"];
 
 // state variable //
 let userArray = [];
