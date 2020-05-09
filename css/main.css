@@ -1,9 +1,10 @@
-h1 {
+#head {
     text-align: center;
-    font-size: 75px;
+    font-size: 70px;
+    height: 70px
 }
 
-h2 {
+#high-score {
     float: right;
     width: 150px;
     border: 10px solid black;
@@ -11,46 +12,30 @@ h2 {
     margin: 20px;
     text-align: center;
 }
+#message {
+    text-align: center;
+}
 
 .circleButton {
     border-radius: 50%;
     width: 300px;
     height: 300px;
-    grid-template-rows: 
 }
 
-/* #cir1 {
-    width: 300px;
-    height: 300px;
-    background: red;
-    border-radius: 50%;
-    position: relative;
-    top: 200px;
-    left: 85px;
-
+#cir1 {
+    background-color: rgb(76, 116, 247);
 }
-
 #cir2 {
-    width: 300px;
-    height: 300px;
-    background: red;
-    border-radius: 50%;
-    float: right;
+    background-color: rgb(77, 165, 96);
 }
-
 #cir3 {
-    width: 100px;
-    height: 100px;
-    background: red;
-    border-radius: 50%;
+    background-color: rgb(230, 97, 97);
+}
+#cir4 {
+    background-color: rgb(243, 243, 106);
 }
 
-#cir4 {
-    width: 100px;
-    height: 100px;
-    background: red;
-    border-radius: 50%;
-} */
+
 
 #resetBtn {
     align-items: center;
