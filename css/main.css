@@ -40,3 +40,6 @@
 #resetBtn {
     align-items: center;
 }
+.hidden {
+    display: none;
+}

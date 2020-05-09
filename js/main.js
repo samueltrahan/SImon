@@ -25,42 +25,47 @@ const circleFour = document.getElementById('cir4');
 
 
 //event listeners
+
+// Start Button
 startBtn.addEventListener('click', startGame);
 
+
+// Reset Button
 resetBtn.addEventListener('click', function() {
     resetDiv.setAttribute("class", "hidden")
     startBtn.setAttribute("class", "");
-    console.log(resetBtn);
     init();
 })
 
+// Circle Buttons
 circleOne.addEventListener('click', function(e) {
+    userArray.push(1);
     circleOne.style.backgroundColor = "#00008B";
     setTimeout(function() {
         clearColors();
-    }, 700);
+    }, 600);
 });
 circleTwo.addEventListener('click', function(e) {
+    userArray.push(2);
     circleTwo.style.backgroundColor = "#006400";
     setTimeout(function() {
         clearColors();
-    }, 700);
+    }, 600);
 });
 circleThree.addEventListener('click', function(e) {
+    userArray.push(3);
     circleThree.style.backgroundColor = "#8b0000";
     setTimeout(function() {
         clearColors();
-    }, 700);
+    }, 600);
 });
 circleFour.addEventListener('click', function(e) {
+    userArray.push(4);
     circleFour.style.backgroundColor = "#CCCC00";
     setTimeout(function() {
         clearColors();
-    }, 700);
+    }, 600);
 });
-// circleTwo.addEventListener('click', clickTwo);
-// circleThree.addEventListener('click', clickThree);
-// clickFour.addEventListener('click', clickFour);
 
 
 
@@ -69,8 +74,9 @@ circleFour.addEventListener('click', function(e) {
 function startGame(e) {
     if(e.target.innerText) {
         startDiv.setAttribute("class", "hidden");
-        resetBtn.setAttribute("class", "");
+        resetDiv.setAttribute("class", "");
     }
+    msgEl.innerHTML = "Follow the colors";
     if(count === 0) {
         userArray = [];
         getRandomColor();
@@ -90,6 +96,7 @@ function init() {
  gameArray = [];
  turn = false; 
  winner = false;
+ render();
 }
 
 function getRandomColor() {
