@@ -66,6 +66,8 @@ circleFour.addEventListener('click', function(e) {
     }, 500);
 });
 
+console.log(userArray);
+
 
 
 // Event listener functions
@@ -96,7 +98,7 @@ function init() {
  gameArray = [];
  turn = false; 
  winner = false;
- render();
+ //render();
 }
 function firstColor() {
     circleOne.style.backgroundColor = "#00008B";
@@ -159,7 +161,7 @@ function userTurn() {
 
 function checkUser() {
     turn = false;
-    arrayCheck();
+    checkArray();
     if(matchArray === true) {
         userArray = [];
         msgEl.innerHTML = `Congrats! You passed level ${counter}!`;
@@ -177,6 +179,21 @@ function checkArray() {
 }
 
 
+function render() {
+if(matchArray === false) {
+    msgEl.innerHTML = `Good game!  
+    You got to level ${counter}!`;
+    gameArray = [];
+    userArray = [];
+    turn = false;
+}else if(userArray.length === 5) {
+    msgEl.innerHTML = `You got 5 in a row!!! Keep it up!`;
+}else if(userArray.length === 10) {
+    `You got 10 in a row! Got a memory on you kid!`;
+}
+}
+
+
 
 function clearColors() {
     circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
@@ -188,11 +205,3 @@ function clearColors() {
 
 
 
-function render() {
-    if(userArray.length === 5) {
-        msgEl.innerHTML = `You got 5 in a row!!! Keep it up!`
-    }else if(userArray.length === 10) {
-        `You got 10 in a row! Got a memory on you kid!`
-    }
-
-}
