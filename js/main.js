@@ -1,15 +1,20 @@
 // constants
 
-const colorBoard = ["blue", "green", "red", "yellow"];
+const turns = {
+    '1': "player",
+    '-1': 'game',
+    '0': 'null'
+}
 
 // state variable //
 let userArray = [];
 let gameArray = [];
-let matchArray;
-let turn = false;
+let turn;
+let compTurn;
 let winner;
 let counter = 0;
-
+let blink;
+let interval;
 //cached Elements
 const msgEl = document.getElementById('message');
 const resetDiv = document.getElementById('resetDiv');
@@ -83,6 +88,8 @@ function startGame(e) {
         getRandomColor();
         blinkColor();
     }
+    console.log(userArray)
+    console.log
 }
 
 
@@ -96,9 +103,52 @@ function init() {
  counter = 0;
  userArray = [];
  gameArray = [];
- turn = false; 
+ blink = 0;
+ interval = 0
+ turn = 1; 
  render();
+ setTimeout(function() {
+     score.innerHTML = 1;
+ }, 1200);
+
+for(let i = 0; i < 20; i++) {
+    gameArray.push(getRandomColor());
 }
+compTurn = true;
+
+interval = setInterval(gameTurn, 800);
+
+}
+
+
+
+function gameTurn() {
+    turn = false;
+
+    if(blink === turn) {
+        clearInterval(interval);
+        compTurn = false;
+        clearColors();
+        turn = true;
+    }
+
+    if(compTurn) {
+        clearColors();
+        setTimeout(() => {
+            if(gameArray[blink] === 1) firstColor();
+            if(gameArray[blink] === 2) secondColor();
+            if(gameArray[blink] === 3) thirdColor();
+            if(gameArray[blink] === 4) fourthColor();
+            blink++
+        }, 700);
+    }
+    setTimeout(function() {
+        msgEl.innerHTML = 'Your Turn!';
+        userTurn();
+    }, (counter + 1) * 1000);
+    }
+
+
 function firstColor() {
     circleOne.style.backgroundColor = "#00008B";
     setTimeout(function() {
@@ -126,37 +176,19 @@ function fourthColor() {
 
 function getRandomColor() {
     gameArray.push(Math.floor(Math.random() * 4) + 1);
-    counter++;
+    blink++;
     blinkColor();
 }
 
-function blinkColor() {
-    gameArray.forEach(function(blink, idx) {
-        setTimeout(function() {
-        if(blink === 1) 
-        firstColor();
-        if(blink === 2)
-        secondColor();
-        if(blink === 3)
-        thirdColor();
-        if(blink === 4)
-        fourthColor();
-    }, (idx + 1) * 700);
-});
-setTimeout(function() {
-    msgEl.innerHTML = 'Your Turn!';
-    userTurn();
-}, (counter + 1) * 1000);
-}
+
 
 function userTurn() {
-    if(turn === true) {
+    turn = true;
         if(userArray.length === gameArray.length) {
             checkUser();
         } else 
         render();
     }
-};
 
 function checkUser() {
     turn = false;
@@ -168,6 +200,7 @@ function checkUser() {
     render();
 }
 
+//check user answer is correct
 function checkArray() {
     for(let i = 0; i < counter.length; i++) {
         if(userArray.length === gameArray.length) {
@@ -186,6 +219,7 @@ if(matchArray === false) {
     gameArray = [];
     userArray = [];
     turn = false;
+    scoreIncrease();
 }else if(userArray.length === 5) {
     msgEl.innerHTML = `You got 5 in a row!!! Keep it up!`;
 }else if(userArray.length === 10) {
@@ -201,7 +235,7 @@ function startAgain() {
 
 function scoreIncrease() {
     if(matchArray) {
-
+        score.innerHTML = counter;
     }
 }
 
