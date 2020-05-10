@@ -9,12 +9,14 @@ const turns = {
 // state variable //
 let userArray = [];
 let gameArray = [];
+let matchArray;
 let turn;
 let compTurn;
 let winner;
-let counter = 0;
 let blink;
 let interval;
+
+
 //cached Elements
 const msgEl = document.getElementById('message');
 const resetDiv = document.getElementById('resetDiv');
@@ -44,32 +46,48 @@ resetBtn.addEventListener('click', function() {
 
 // Circle Buttons
 circleOne.addEventListener('click', function(e) {
+    if(turn ===  true) {
     userArray.push(1);
+    checkUser();
+    firstColor();
     circleOne.style.backgroundColor = "#00008B";
     setTimeout(function() {
         clearColors();
-    }, 500);
+    }, 300);
+}
 });
 circleTwo.addEventListener('click', function(e) {
+    if(turn === true) {
     userArray.push(2);
+    checkUser();
+    secondColor();
     circleTwo.style.backgroundColor = "#006400";
     setTimeout(function() {
         clearColors();
-    }, 500);
+    }, 300);
+}
 });
 circleThree.addEventListener('click', function(e) {
+    if(turn === true) {
     userArray.push(3);
+    checkUser();
+    thirdColor();
     circleThree.style.backgroundColor = "#8b0000";
     setTimeout(function() {
         clearColors();
-    }, 500);
+    }, 300);
+}
 });
 circleFour.addEventListener('click', function(e) {
+    if(turn === true) {
     userArray.push(4);
+    checkUser();
+    fourthColor();
     circleFour.style.backgroundColor = "#CCCC00";
     setTimeout(function() {
         clearColors();
-    }, 500);
+    }, 300);
+}
 });
 
 
@@ -83,7 +101,7 @@ function startGame(e) {
         resetDiv.setAttribute("class", "");
     }
     msgEl.innerHTML = "Follow the colors";
-    if(counter === 0) {
+    if(blink === 0) {
         userArray = [];
         getRandomColor();
         blinkColor();
@@ -100,9 +118,9 @@ init();
 
 function init() {
  msgEl.innerHTML = "Press Start to Play";
- counter = 0;
  userArray = [];
  gameArray = [];
+ matchArray = true;
  blink = 0;
  interval = 0
  turn = 1; 
@@ -113,6 +131,7 @@ function init() {
 
 for(let i = 0; i < 20; i++) {
     gameArray.push(getRandomColor());
+    console.log(gameArray);
 }
 compTurn = true;
 
@@ -140,7 +159,7 @@ function gameTurn() {
             if(gameArray[blink] === 3) thirdColor();
             if(gameArray[blink] === 4) fourthColor();
             blink++
-        }, 700);
+        }, 300);
     }
     setTimeout(function() {
         msgEl.innerHTML = 'Your Turn!';
@@ -151,54 +170,50 @@ function gameTurn() {
 
 function firstColor() {
     circleOne.style.backgroundColor = "#00008B";
-    setTimeout(function() {
-        clearColors();
-    }, 700);
 }
 function secondColor() {
     circleTwo.style.backgroundColor = "#006400";
-    setTimeout(function() {
-        clearColors();
-    }, 700);
 }
 function thirdColor() {
     circleThree.style.backgroundColor = "#8b0000";
-    setTimeout(function() {
-        clearColors();
-    }, 700);
 }
 function fourthColor() {
     circleFour.style.backgroundColor = "#CCCC00";
-    setTimeout(function() {
-        clearColors();
-    }, 700);
 }
 
 function getRandomColor() {
     gameArray.push(Math.floor(Math.random() * 4) + 1);
     blink++;
-    blinkColor();
+    gameTurn();
 }
-
-
-
-function userTurn() {
-    turn = true;
-        if(userArray.length === gameArray.length) {
-            checkUser();
-        } else 
-        render();
-    }
 
 function checkUser() {
     turn = false;
     checkArray();
-    if(matchArray === true) {
+    if(userArray[userArray.length -1] !== gameArray[userArray.length - 1]) {
+        matchArray = false;
+    } 
+    if(userArray.length === 20 && matchArray) {
+        render();
+    }
+    if(matchArray === false) {
+        blinkColor();
+        score.innerHTML = `No!`;
+        setTimeout(() => {
+            score.innerHTML = turn;
+            clearColors();
+        }, 800);
+    }
+    if(turn === userArray.length && matchArray && !winner) {
+        turn++;
         userArray = [];
-        msgEl.innerHTML = `Congrats! You passed level ${counter}!`;
-    } else 
-    render();
+        compTurn = true;
+        blink;
+        score.innerHTML = turn;
+        interval = setInterval(gameTurn, 500);
+    }
 }
+//msgEl.innerHTML = `Congrats! You passed level ${blink}!`;
 
 //check user answer is correct
 function checkArray() {
@@ -212,7 +227,7 @@ function checkArray() {
 }
 
 
-function render() {
+function winGame() {
 if(matchArray === false) {
     msgEl.innerHTML = `Good game!  
     You got to level ${counter}!`;
@@ -228,14 +243,13 @@ if(matchArray === false) {
 }
 
 function startAgain() {
-    counter++;
     getRandomColor();
     blinkColor();
 }
 
 function scoreIncrease() {
     if(matchArray) {
-        score.innerHTML = counter;
+        score.innerHTML = blink;
     }
 }
 
