@@ -47,18 +47,18 @@ function startGame(e) {
 resetBtn.addEventListener('click', function() {
     resetDiv.setAttribute("class", "hidden")
     startBtn.setAttribute("class", "");
-    init();
+    play();
 })
 
 // Circle Buttons
+
 circleOne.addEventListener('click', function(e) {
-    if(playerPress === true) {
+    if(playerPress) {
     userArray.push(1);
     console.log(userArray);
     checkUser();
     firstColor();
     }
-    circleOne.style.backgroundColor = "#00008B";
     if(!winner) {
     setTimeout(function() {
         clearColors();
@@ -66,12 +66,11 @@ circleOne.addEventListener('click', function(e) {
 }
 });
 circleTwo.addEventListener('click', function(e) {
-    if(playerPress === true) {
+    if(playerPress) {
     userArray.push(2);
     checkUser();
     secondColor();
     }
-    circleTwo.style.backgroundColor = "#006400";
     if(!winner) {
     setTimeout(function() {
         clearColors();
@@ -79,12 +78,12 @@ circleTwo.addEventListener('click', function(e) {
     }
 });
 circleThree.addEventListener('click', function(e) {
-    if(playerPress === true) {
+    if(playerPress) {
     userArray.push(3);
     checkUser();
     thirdColor();
+    console.log(thirdColor());
     }
-    circleThree.style.backgroundColor = "#8b0000";
     if(!winner) {
     setTimeout(function() {
         clearColors();
@@ -92,12 +91,11 @@ circleThree.addEventListener('click', function(e) {
 }
 });
 circleFour.addEventListener('click', function(e) {
-    if(playerPress === true) {
+    if(playerPress) {
     userArray.push(4);
     checkUser();
     fourthColor();
     }
-    circleFour.style.backgroundColor = "#CCCC00";
     if(!winner) {
     setTimeout(function() {
         clearColors();
@@ -107,21 +105,10 @@ circleFour.addEventListener('click', function(e) {
 
 //functions
 
-init();
-
-function init() {
-    msgEl.innerHTML = `Press Start to Play`;
-    userArray = [];
-    gameArray = [];
-    matchArray = true;
-    blink = 0;
-    interval = 0
-    counter = 0; 
-    render();
-    
-}
+play();
 
 function play() {
+    msgEl.innerHTML = `Press Start to Play`;
     userArray = [];
     gameArray = [];
     matchArray = true;
@@ -134,6 +121,7 @@ function play() {
     }, 1200);
     getRandomColor();
     render();
+    
 }
 
 function getRandomColor() {
@@ -189,9 +177,10 @@ function fourthColor() {
 }
 
 
+
+
 function checkUser() {
-    counter = false;
-    checkArray();
+    playerPress = false;
     if(userArray[userArray.length - 1] !== gameArray[userArray.length - 1]) {
         matchArray = false;
     } 
@@ -210,7 +199,7 @@ function checkUser() {
         counter++;
         userArray = [];
         compTurn = true;
-        blink;
+        blink = 0;
         score.innerHTML = turn;
         interval = setInterval(gameTurn, 500);
     }
