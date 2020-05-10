@@ -155,7 +155,7 @@ function userTurn() {
         if(userArray.length === gameArray.length) {
             checkUser();
         } else 
-        endGame();
+        render();
     }
 };
 
@@ -166,13 +166,14 @@ function checkUser() {
         userArray = [];
         msgEl.innerHTML = `Congrats! You passed level ${counter}!`;
     } else 
-    endGame();
+    render();
 }
 
 function checkArray() {
     for(let i = 0; i < counter.length; i++) {
         if(userArray.length === gameArray.length) {
             matchArray = true;
+            startAgain();
         }else 
         matchArray = false;
     }
@@ -193,6 +194,11 @@ if(matchArray === false) {
 }
 }
 
+function startAgain() {
+    counter++;
+    getRandomColor();
+    blinkColor();
+}
 
 
 function clearColors() {
