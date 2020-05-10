@@ -9,6 +9,7 @@ let compTurn;
 let winner;
 let blink;
 let interval;
+let gameStart;
 
 
 //cached Elements
@@ -44,44 +45,45 @@ circleOne.addEventListener('click', function(e) {
     userArray.push(1);
     checkUser();
     firstColor();
+    }
     circleOne.style.backgroundColor = "#00008B";
     setTimeout(function() {
         clearColors();
-    }, 300);
-}
+    }, 700);
 });
 circleTwo.addEventListener('click', function(e) {
     if(turn === true) {
     userArray.push(2);
     checkUser();
     secondColor();
+    }
     circleTwo.style.backgroundColor = "#006400";
     setTimeout(function() {
         clearColors();
     }, 300);
-}
+
 });
 circleThree.addEventListener('click', function(e) {
     if(turn === true) {
     userArray.push(3);
     checkUser();
     thirdColor();
+    }
     circleThree.style.backgroundColor = "#8b0000";
     setTimeout(function() {
         clearColors();
     }, 300);
-}
 });
 circleFour.addEventListener('click', function(e) {
     if(turn === true) {
     userArray.push(4);
     checkUser();
     fourthColor();
+    }
     circleFour.style.backgroundColor = "#CCCC00";
     setTimeout(function() {
         clearColors();
     }, 300);
-}
 });
 
 
@@ -97,7 +99,8 @@ function startGame(e) {
     msgEl.innerHTML = "Follow the colors";
     if(blink === 0) {
         userArray = [];
-        gameTurn();
+    getRandomColor();
+    gameTurn();
     }
     
 }
@@ -120,23 +123,26 @@ function init() {
     score.innerHTML = 1;
  }, 1200);
 
-for(let i = 0; i < 20; i++) {
-    gameArray.push(Math.floor(Math.random() *4) + 1);
+ render();
 }
-compTurn = true;
 
-interval = setInterval(gameTurn, 800);
-render();
-}
+function getRandomColor() {
+    for(let i = 0; i < 20; i++) {
+        gameArray.push(Math.floor(Math.random() *4) + 1);
+    }
+    compTurn = true;
+        
+    interval = setInterval(gameTurn, 800);
+    }
 
 function gameTurn() {
-    turn = false;
+    gameStart = false;
 
     if(blink === turn) {
         clearInterval(interval);
         compTurn = false;
         clearColors();
-        turn = true;
+        gameStart = true;
     }
 
     if(compTurn) {
@@ -149,10 +155,6 @@ function gameTurn() {
             blink++
         }, 300);
     }
-    setTimeout(function() {
-        msgEl.innerHTML = 'Your Turn!';
-        userTurn();
-    }, (blink + 1) * 1000);
     }
 
 
