@@ -1,11 +1,5 @@
 // constants
 
-const turns = {
-    '1': "player",
-    '-1': 'game',
-    '0': 'null'
-}
-
 // state variable //
 let userArray = [];
 let gameArray = [];
@@ -103,11 +97,9 @@ function startGame(e) {
     msgEl.innerHTML = "Follow the colors";
     if(blink === 0) {
         userArray = [];
-        getRandomColor();
-        blinkColor();
+        gameTurn();
     }
-    console.log(userArray)
-    console.log
+    
 }
 
 
@@ -124,22 +116,18 @@ function init() {
  blink = 0;
  interval = 0
  turn = 1; 
- render();
  setTimeout(function() {
-     score.innerHTML = 1;
+    score.innerHTML = 1;
  }, 1200);
 
 for(let i = 0; i < 20; i++) {
-    gameArray.push(getRandomColor());
-    console.log(gameArray);
+    gameArray.push(Math.floor(Math.random() *4) + 1);
 }
 compTurn = true;
 
 interval = setInterval(gameTurn, 800);
-
+render();
 }
-
-
 
 function gameTurn() {
     turn = false;
@@ -164,7 +152,7 @@ function gameTurn() {
     setTimeout(function() {
         msgEl.innerHTML = 'Your Turn!';
         userTurn();
-    }, (counter + 1) * 1000);
+    }, (blink + 1) * 1000);
     }
 
 
@@ -178,14 +166,9 @@ function thirdColor() {
     circleThree.style.backgroundColor = "#8b0000";
 }
 function fourthColor() {
-    circleFour.style.backgroundColor = "#CCCC00";
+    circleFour.style.backgroundColor = "#CCC00";
 }
 
-function getRandomColor() {
-    gameArray.push(Math.floor(Math.random() * 4) + 1);
-    blink++;
-    gameTurn();
-}
 
 function checkUser() {
     turn = false;
@@ -198,7 +181,7 @@ function checkUser() {
     }
     if(matchArray === false) {
         blinkColor();
-        score.innerHTML = `No!`;
+        score.innerHTML = `Wrong Answer!`;
         setTimeout(() => {
             score.innerHTML = turn;
             clearColors();
@@ -215,36 +198,20 @@ function checkUser() {
 }
 //msgEl.innerHTML = `Congrats! You passed level ${blink}!`;
 
-//check user answer is correct
-function checkArray() {
-    for(let i = 0; i < counter.length; i++) {
-        if(userArray.length === gameArray.length) {
-            matchArray = true;
-            startAgain();
-        }else 
-        matchArray = false;
-    }
-}
-
-
-function winGame() {
+function render() {
 if(matchArray === false) {
     msgEl.innerHTML = `Good game!  
-    You got to level ${counter}!`;
-    gameArray = [];
-    userArray = [];
+    You got to level ${blink}!`;
     turn = false;
     scoreIncrease();
 }else if(userArray.length === 5) {
     msgEl.innerHTML = `You got 5 in a row!!! Keep it up!`;
 }else if(userArray.length === 10) {
     `You got 10 in a row! Got a memory on you kid!`;
-}
-}
-
-function startAgain() {
-    getRandomColor();
+}else if(userArray.length === 20) {
+    `Congrats!! You won the game!!!!`;
     blinkColor();
+}
 }
 
 function scoreIncrease() {
@@ -258,6 +225,13 @@ function clearColors() {
     circleTwo.style.backgroundColor = 'rgb(77, 165, 96)';
     circleThree.style.backgroundColor = 'rgb(230, 97, 97)';
     circleFour.style.backgroundColor = 'rgb(243, 243, 106)';
+}
+
+function blinkColor() {
+    circleOne.style.backgroundColor = '#00008B';
+    circleTwo.style.backgroundColor = '#006400';
+    circleThree.style.backgroundColor = '#8b0000';
+    circleFour.style.backgroundColor = '#CCC00';
 }
 
 
