@@ -20,6 +20,7 @@ const circleOne = document.getElementById('cir1');
 const circleTwo = document.getElementById('cir2');
 const circleThree = document.getElementById('cir3');
 const circleFour = document.getElementById('cir4');
+const score = document.getElementById('score');
 
 
 
@@ -66,7 +67,6 @@ circleFour.addEventListener('click', function(e) {
     }, 500);
 });
 
-console.log(userArray);
 
 
 
@@ -78,7 +78,7 @@ function startGame(e) {
         resetDiv.setAttribute("class", "");
     }
     msgEl.innerHTML = "Follow the colors";
-    if(count === 0) {
+    if(counter === 0) {
         userArray = [];
         getRandomColor();
         blinkColor();
@@ -93,12 +93,11 @@ init();
 
 function init() {
  msgEl.innerHTML = "Press Start to Play";
- count = 0;
+ counter = 0;
  userArray = [];
  gameArray = [];
  turn = false; 
- winner = false;
- //render();
+ render();
 }
 function firstColor() {
     circleOne.style.backgroundColor = "#00008B";
@@ -200,6 +199,11 @@ function startAgain() {
     blinkColor();
 }
 
+function scoreIncrease() {
+    if(matchArray) {
+
+    }
+}
 
 function clearColors() {
     circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
