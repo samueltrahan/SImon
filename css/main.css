@@ -35,7 +35,7 @@
     background-color: rgb(243, 243, 106);
 }
 
-#score {
+#scoreBoard {
     border: solid black;
     border-radius: 50%;
     float: right;
