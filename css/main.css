@@ -68,13 +68,13 @@ body {
     width: 300px;
     height: 300px;
     position: relative;
-    left: 190px;
+    left: 175px;
 }
 
 #scoreBoard {
     border: solid black;
     border-radius: 50%;
-    float: right;
+    display: flexbox;
     width: 150px;
     text-align: center;
     height: 60px;
@@ -88,82 +88,11 @@ body {
     left: 490px
 }
 
-.hidden {
-    display: none;
+#resetDiv {
+    position: relative;
+    left: 490px;
 }
 
-@media only screen and (min-width: 1224px) {
-    #head {
-        text-align: center;
-        font-size: 70px;
-        height: 70px
-    }
-
-    #message {
-        text-align: center;
-    }
-
-    #div {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        grid-template-rows: 400px;
-    }
-
-    #cir1 {
-        background-color: rgb(76, 116, 247);
-        border-radius: 50%;
-        width: 300px;
-        height: 300px;
-        position: relative;
-        left: 180px;
-    }
-
-    #cir2 {
-        background-color: rgb(77, 165, 96);
-        border-radius: 50%;
-        width: 300px;
-        height: 300px;
-        position: relative;
-        left: 210px
-    }
-
-    #cir3 {
-        background-color: rgb(230, 97, 97);
-        border-radius: 50%;
-        width: 300px;
-        height: 300px;
-        position: relative;
-        top: 300px;
-        right: 90px;
-    }
-
-    #cir4 {
-        background-color: rgb(243, 243, 106);
-        border-radius: 50%;
-        width: 300px;
-        height: 300px;
-        position: relative;
-        left: 190px;
-    }
-
-    #scoreBoard {
-        border: solid black;
-        border-radius: 50%;
-        float: right;
-        width: 150px;
-        text-align: center;
-        height: 60px;
-        position: relative;
-        right: 365px;
-        bottom: 340px
-    }
-
-    #startDiv {
-        position: relative;
-        left: 490px
-    }
-
-    .hidden {
-        display: none;
-    }
+.hidden {
+    display: none;
 }
