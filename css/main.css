@@ -1,0 +1,87 @@
+#head {
+    text-align: center;
+    color: gradient;
+    font-family: 'Shrikhand', cursive;
+    font-size: 100px;
+}
+
+#message {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+}
+
+#high-score {
+    align-items: right;
+    box-sizing: border-box;
+    border: 5px solid black;
+    width: 150px;
+    height: 70px;
+    text-align: center;
+    position: relative;
+    left: 20px;
+}
+
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.circleButton {
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    display: flexbox;
+    justify-content: center;
+    align-content: center;
+}
+
+#cir1 {
+    background-color: rgb(6, 34, 126);
+}
+
+#cir2 {
+    background-color: rgb(24, 90, 38);
+}
+
+#cir3 {
+    background-color: rgb(163, 10, 10);
+}
+
+#cir4 {
+    background-color: rgb(185, 185, 11);
+}
+
+#startDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 175px;
+}
+
+.hidden {
+    display: none;
+}
+
+#resetDiv {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 175px;
+    left: 925px;
+}
