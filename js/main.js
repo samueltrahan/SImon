@@ -21,6 +21,7 @@ const circleTwo = document.getElementById('cir2');
 const circleThree = document.getElementById('cir3');
 const circleFour = document.getElementById('cir4');
 const score = document.getElementById('score');
+const circleButtons = document.querySelectorAll('.circleButton');
 
 
 
@@ -29,26 +30,23 @@ const score = document.getElementById('score');
 // Start Button
 startBtn.addEventListener('click', startGame);
 
+// Reset Button
+resetBtn.addEventListener('click', function () {
+  resetDiv.setAttribute('class', 'hidden');
+  startDiv.setAttribute('class', '');
+});
 
-function startGame(e) {
-    if(e.target.innerText) {
-        startDiv.setAttribute("class", "hidden");
-        resetDiv.setAttribute("class", "");
-    }
-    setTimeout(function() {
-    msgEl.innerHTML = "Follow the colors!"
-    if(playerPress || winner) {
-        play();
-    } 
-}, 700);
+function startGame(event) {
+  if (event.target.innerText) {
+    startDiv.setAttribute('class', 'hidden');
+    resetDiv.setAttribute('class', '');
+  }
+  setTimeout(function () {
+    play();
+  }, 700);
 }
 // Reset Button
 
-resetBtn.addEventListener('click', function() {
-    resetDiv.setAttribute("class", "hidden")
-    startBtn.setAttribute("class", "");
-    play();
-})
 
 // Circle Buttons
 
@@ -108,19 +106,11 @@ circleFour.addEventListener('click', function(e) {
 play();
 
 function play() {
-    msgEl.innerHTML = `Press Start to Play`;
-    userArray = [];
-    gameArray = [];
-    matchArray = true;
-    blink = 0;
-    interval = 0
-    counter = 1; 
-    winner = false;
-    setTimeout(function() {
-    score.innerHTML = 1;
-    }, 1200);
-    getRandomColor();
-    render();
+    msgEl.innerHTML = `Follow the colors!`;
+    if(round === 1) {
+        getRandomColor();
+    } 
+    interval = setInterval(gameTurn, 800);
     
 }
 
@@ -128,40 +118,37 @@ function getRandomColor() {
     for(let i = 0; i < 20; i++) {
         gameArray.push(Math.floor(Math.random() *4) + 1);
     }
-    compTurn = true;
-    interval = setInterval(gameTurn, 800);
 }
 
 function gameTurn() {
-    playerPress = false;
+    if(compTurn) {
+        handleBlink();
+        blink++
+    }
 
     if(blink === counter) {
         clearInterval(interval);
-        compTurn = false;
-        clearColors();
-        playerPress = true;
+        blink = 0;
+        startPlayerTurn();
     }
 
-    if(compTurn) {
-        clearColors();
-        setTimeout(() => {
-            if(gameArray[blink] === 1)  {
-                firstColor();
-            }
-            if(gameArray[blink] === 2) {
-                secondColor();
-            }
-            if(gameArray[blink] === 3)  {
-                thirdColor();
-            }
-            if(gameArray[blink] === 4)  {
-                fourthColor();
-            }
-            blink++
-        }, 300);
-      }
-    }
+}
 
+setTimeout(() => {
+    if(gameArray[blink] === 1)  {
+        firstColor();
+    }
+    if(gameArray[blink] === 2) {
+        secondColor();
+    }
+    if(gameArray[blink] === 3)  {
+        thirdColor();
+    }
+    if(gameArray[blink] === 4)  {
+        fourthColor();
+    }
+    blink++
+}, 300);
 
 function firstColor() {
     circleOne.style.backgroundColor = "#00008B";
