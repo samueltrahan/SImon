@@ -30,6 +30,8 @@ startBtn.addEventListener('click', startGame);
 resetBtn.addEventListener('click', function () {
   resetDiv.setAttribute('class', 'hidden');
   startDiv.setAttribute('class', '');
+  score.innerHTML = 0;
+  init();
 });
 
 function startGame(event) {
@@ -40,6 +42,18 @@ function startGame(event) {
   setTimeout(function () {
     play();
   }, 700);
+}
+
+function init() {
+  msgEl.innerHTML = `Press start to play`;
+   gameArray = [];
+   matchArray = true;
+   round = 1;
+   blinkCheck = 0;
+   compTurn = true;
+   winner = false;
+   blink = 0;
+   clearInterval(interval);
 }
 
 function play() {
