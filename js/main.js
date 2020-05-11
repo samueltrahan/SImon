@@ -177,24 +177,15 @@ function blinkButton(buttonNum) {
   }
 
 
-function checkUser() {
-    playerPress = false;
-    if(userArray[userArray.length - 1] !== gameArray[userArray.length - 1]) {
-        matchArray = false;
-        render(); 
-    } 
-    if(userArray.length === 20 && matchArray) {
-        render();
+  function endPlayerTurn() {
+    for (let i = 0; i < simonButtons.length; i++) {
+      simonButtons[i].setAttribute('disabled', true);
     }
-    if(counter === userArray.length && matchArray && !winner) {
-        counter++;
-        userArray = [];
-        compTurn = true;
-        blink = 0;
-        score.innerHTML = counter;
-        interval = setInterval(gameTurn, 800);
-    }
-}
+    blinkCheck = 0;
+    compTurn = true;
+    round++;
+    play();
+  }
 //msgEl.innerHTML = `Congrats! You passed level ${blink}!`;
 
 function render() {
