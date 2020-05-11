@@ -64,7 +64,19 @@ function handleSimonButton(buttonNum) {
       blinkCheck++;
     }
   }
-  
+  circleOne.addEventListener('click', function () {
+    handleSimonButton(1);
+  });
+  circleTwo.addEventListener('click', function () {
+    handleSimonButton(2);
+  });
+  circleThree.addEventListener('click', function () {
+    handleSimonButton(3);
+  });
+  circleFour.addEventListener('click', function () {
+    handleSimonButton(4);
+  });
+
 
 //functions
 
