@@ -120,6 +120,20 @@ function blinkButton(buttonNum) {
 }
 
 function startPlayerTurn() {
+  setTimeout(function() {
+  msgEl.innerHTML = `Press the correct colors!`
+}, 500)
+setTimeout(function() {
+  if(round === 5) {
+    msgEl.innerHTML = `Good Job! You got ${round} in a row!!`
+  } else if(round === 10) {
+    msgEl.innerHTML = `Way to go! That's ${round}! Keep it up!`
+  } else if(round === 20) {
+    msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
+    Press restart to try again!`;
+    init();
+  }
+}, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
     simonButtons[i].removeAttribute('disabled');
   }
@@ -140,8 +154,9 @@ function endPlayerTurn() {
 function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
-    msgEl.innerHTML = 'Wrong Answer!';
-    // end game
+    msgEl.innerHTML = `Wrong answer!! Ready to try again?
+  Press reset to test your memory!`
+  endPlayerTurn();
   }
   score.innerHTML = round;
 
@@ -164,23 +179,7 @@ circleThree.addEventListener('click', function () {
 circleFour.addEventListener('click', function () {
   handleSimonButton(4);
 });
-//msgEl.innerHTML = `Congrats! You passed level ${blink}!`;
 
-// function render() {
-// if(matchArray === false) {
-//     msgEl.innerHTML = `Game Over!!  
-//     You got to level ${counter}!`;
-//     counter = false;
-//     scoreIncrease();
-// }else if(userArray.length === 5) {
-//     msgEl.innerHTML = `You got 5 in a row!!! Keep it up!`;
-// }else if(userArray.length === 10) {
-//     `You got 10 in a row! Got a memory on you kid!`;
-// }else if(userArray.length === 20) {
-//     `Congrats!! You won the game!!!!`;
-//     blinkColor();
-// }
-// }
 
 
 
