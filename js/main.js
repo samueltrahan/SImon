@@ -1,15 +1,13 @@
 // constants
 
 // state variable //
-let userArray = [];
 let gameArray = [];
-let matchArray;
-let counter;
-let compTurn;
-let winner;
-let blink;
+let round = 1;
+let blinkCheck = 0;
+let compTurn = true;
+let winner = false;
+let blink = 0;
 let interval;
-let playerPress = false;
 
 
 //cached Elements
@@ -37,10 +35,12 @@ function startGame(e) {
         startDiv.setAttribute("class", "hidden");
         resetDiv.setAttribute("class", "");
     }
+    setTimeout(function() {
     msgEl.innerHTML = "Follow the colors!"
     if(playerPress || winner) {
-    play();
+        play();
     } 
+}, 700);
 }
 // Reset Button
 
@@ -183,25 +183,18 @@ function checkUser() {
     playerPress = false;
     if(userArray[userArray.length - 1] !== gameArray[userArray.length - 1]) {
         matchArray = false;
+        render(); 
     } 
     if(userArray.length === 20 && matchArray) {
         render();
-    }
-    if(matchArray === false) {
-        blinkColor();
-        score.innerHTML = `Wrong Answer!`;
-        setTimeout(() => {
-            score.innerHTML = turn;
-            clearColors();
-        }, 800);
     }
     if(counter === userArray.length && matchArray && !winner) {
         counter++;
         userArray = [];
         compTurn = true;
         blink = 0;
-        score.innerHTML = turn;
-        interval = setInterval(gameTurn, 500);
+        score.innerHTML = counter;
+        interval = setInterval(gameTurn, 800);
     }
 }
 //msgEl.innerHTML = `Congrats! You passed level ${blink}!`;
@@ -221,13 +214,6 @@ if(matchArray === false) {
     blinkColor();
 }
 }
-
-function scoreIncrease() {
-    if(matchArray) {
-        score.innerHTML = counter;
-    }
-}
-
 function clearColors() {
     circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
     circleTwo.style.backgroundColor = 'rgb(77, 165, 96)';
