@@ -50,56 +50,21 @@ function startGame(event) {
 
 // Circle Buttons
 
-circleOne.addEventListener('click', function(e) {
-    if(playerPress) {
-    userArray.push(1);
-    console.log(userArray);
-    checkUser();
-    firstColor();
+function handleSimonButton(buttonNum) {
+    blinkButton(buttonNum);
+    if (gameArray[blinkCheck] !== buttonNum) {
+      msgEl.innerHTML = 'Wrong Answer!';
+      // end game
     }
-    if(!winner) {
-    setTimeout(function() {
-        clearColors();
-    }, 300);
-}
-});
-circleTwo.addEventListener('click', function(e) {
-    if(playerPress) {
-    userArray.push(2);
-    checkUser();
-    secondColor();
+    score.innerHTML = round;
+  
+    if (blinkCheck === round - 1) {
+      endPlayerTurn();
+    } else {
+      blinkCheck++;
     }
-    if(!winner) {
-    setTimeout(function() {
-        clearColors();
-    }, 300);
-    }
-});
-circleThree.addEventListener('click', function(e) {
-    if(playerPress) {
-    userArray.push(3);
-    checkUser();
-    thirdColor();
-    console.log(thirdColor());
-    }
-    if(!winner) {
-    setTimeout(function() {
-        clearColors();
-    }, 300);
-}
-});
-circleFour.addEventListener('click', function(e) {
-    if(playerPress) {
-    userArray.push(4);
-    checkUser();
-    fourthColor();
-    }
-    if(!winner) {
-    setTimeout(function() {
-        clearColors();
-    }, 300);
-}
-});
+  }
+  
 
 //functions
 
