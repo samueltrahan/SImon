@@ -134,34 +134,42 @@ function gameTurn() {
 
 }
 
+function handleBlink() {
 setTimeout(() => {
     if(gameArray[blink] === 1)  {
-        firstColor();
+        blinkButton(1);
+    } else if(gameArray[blink] === 2) {
+        blinkButton(2)
+    } else if(gameArray[blink] === 3)  {
+        blinkButton(3);
+    }else  {
+        blinkButton(4);
     }
-    if(gameArray[blink] === 2) {
-        secondColor();
-    }
-    if(gameArray[blink] === 3)  {
-        thirdColor();
-    }
-    if(gameArray[blink] === 4)  {
-        fourthColor();
-    }
-    blink++
-}, 300);
+}
 
-function firstColor() {
-    circleOne.style.backgroundColor = "#00008B";
-}
-function secondColor() {
-    circleTwo.style.backgroundColor = "#006400";
-}
-function thirdColor() {
-    circleThree.style.backgroundColor = "#8b0000";
-}
-function fourthColor() {
-    circleFour.style.backgroundColor = "#CCC00";
-}
+function blinkButton(buttonNum) {
+    if (buttonNum === 1) {
+      circleOne.style.backgroundColor = '#00008B';
+      setTimeout(function () {
+        circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
+      }, 300);
+    } else if (buttonNum === 2) {
+      circleTwo.style.backgroundColor = '#006400';
+      setTimeout(function () {
+        circleTwo.style.backgroundColor = 'rgb(77, 165, 96)';
+      }, 300);
+    } else if (buttonNum === 3) {
+      circleThree.style.backgroundColor = '#8b0000';
+      setTimeout(function () {
+        circleThree.style.backgroundColor = 'rgb(230, 97, 97)';
+      }, 300);
+    } else {
+      circleFour.style.backgroundColor = '#CCCC00';
+      setTimeout(function () {
+        circleFour.style.backgroundColor = 'rgb(243, 243, 106)';
+      }, 300);
+    }
+  }
 
 
 
