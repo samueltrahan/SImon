@@ -46,14 +46,14 @@ function startGame(event) {
 
 function init() {
   msgEl.innerHTML = `Press start to play`;
-   gameArray = [];
-   matchArray = true;
-   round = 1;
-   blinkCheck = 0;
-   compTurn = true;
-   winner = false;
-   blink = 0;
-   clearInterval(interval);
+  gameArray = [];
+  matchArray = true;
+  round = 1;
+  blinkCheck = 0;
+  compTurn = true;
+  winner = false;
+  blink = 0;
+  clearInterval(interval);
 }
 
 function play() {
@@ -97,43 +97,43 @@ function handleBlink() {
 
 function blinkButton(buttonNum) {
   if (buttonNum === 1) {
-    circleOne.style.backgroundColor = '#00008B';
+    circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
     setTimeout(function () {
-      circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
+      circleOne.style.backgroundColor = 'rgb(6, 34, 126)';
     }, 300);
   } else if (buttonNum === 2) {
-    circleTwo.style.backgroundColor = '#006400';
+    circleTwo.style.backgroundColor = 'rgb(77, 165, 96)';
     setTimeout(function () {
-      circleTwo.style.backgroundColor = 'rgb(77, 165, 96)';
+      circleTwo.style.backgroundColor = 'rgb(24, 90, 38)';
     }, 300);
   } else if (buttonNum === 3) {
-    circleThree.style.backgroundColor = '#8b0000';
+    circleThree.style.backgroundColor = 'rgb(230, 97, 97)';
     setTimeout(function () {
-      circleThree.style.backgroundColor = 'rgb(230, 97, 97)';
+      circleThree.style.backgroundColor = 'rgb(163, 10, 10)';
     }, 300);
   } else {
-    circleFour.style.backgroundColor = '#CCCC00';
+    circleFour.style.backgroundColor = 'rgb(243, 243, 106)';
     setTimeout(function () {
-      circleFour.style.backgroundColor = 'rgb(243, 243, 106)';
+      circleFour.style.backgroundColor = 'rgb(185, 185, 11)';
     }, 300);
   }
 }
 
 function startPlayerTurn() {
-  setTimeout(function() {
-  msgEl.innerHTML = `Press the correct colors!`
-}, 500)
-setTimeout(function() {
-  if(round === 5) {
-    msgEl.innerHTML = `Good Job! You got ${round} in a row!!`
-  } else if(round === 10) {
-    msgEl.innerHTML = `Way to go! That's ${round}! Keep it up!`
-  } else if(round === 20) {
-    msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
+  setTimeout(function () {
+    msgEl.innerHTML = `Press the correct colors!`
+  }, 500)
+  setTimeout(function () {
+    if (round === 5) {
+      msgEl.innerHTML = `Good Job! You got ${round} in a row!!`
+    } else if (round === 10) {
+      msgEl.innerHTML = `Way to go! That's ${round}! Keep it up!`
+    } else if (round === 20) {
+      msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
     Press restart to try again!`;
-    init();
-  }
-}, 1200);
+      init();
+    }
+  }, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
     simonButtons[i].removeAttribute('disabled');
   }
@@ -156,7 +156,7 @@ function handleSimonButton(buttonNum) {
   if (gameArray[blinkCheck] !== buttonNum) {
     msgEl.innerHTML = `Wrong answer!! Ready to try again?
   Press reset to test your memory!`
-  endPlayerTurn();
+    endPlayerTurn();
   }
   score.innerHTML = round;
 
@@ -179,8 +179,3 @@ circleThree.addEventListener('click', function () {
 circleFour.addEventListener('click', function () {
   handleSimonButton(4);
 });
-
-
-
-
-
