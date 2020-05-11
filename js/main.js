@@ -135,7 +135,6 @@ function gameTurn() {
 }
 
 function handleBlink() {
-setTimeout(() => {
     if(gameArray[blink] === 1)  {
         blinkButton(1);
     } else if(gameArray[blink] === 2) {
@@ -171,7 +170,11 @@ function blinkButton(buttonNum) {
     }
   }
 
-
+  function startPlayerTurn() {
+    for (let i = 0; i < simonButtons.length; i++) {
+      simonButtons[i].removeAttribute('disabled');
+    }
+  }
 
 
 function checkUser() {
