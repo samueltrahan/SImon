@@ -1,7 +1,7 @@
 .board {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 300px 75px 300px;
+  grid-template-rows: 300px 75px 300px;
   justify-content: center;
   margin-top: 20px;
 }
@@ -33,4 +33,15 @@
    grid-column: 3/4;
    grid-row: 3/4;
    background-color: rgb(185, 185, 11);
+ }
+
+ #scoreBoard {
+   grid-column: 2/3;
+   grid-row: 2/3;
+   box-sizing: border-box;
+   border: 5px solid black;
+   border-radius: 50%;
+   text-align: center;
+   width: 150px;
+   justify-self: center;
  }
