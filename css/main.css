@@ -1,16 +1,119 @@
 #head {
-    text-align: center;
-    color: gradient;
-    font-family: 'Shrikhand', cursive;
-    font-size: 100px;
+  text-align: center;
+  color: gradient;
+  font-family: "Shrikhand", cursive;
+  font-size: 100px;
 }
 
 #message {
-    font-family: 'Raleway', sans-serif;
-    text-align: center;
+  font-family: "Raleway", sans-serif;
+  text-align: center;
 }
 
 #high-score {
+  align-items: right;
+  box-sizing: border-box;
+  border: 5px solid black;
+  width: 150px;
+  height: 70px;
+  text-align: center;
+  position: relative;
+  bottom: 100px;
+  left: 20px;
+}
+
+body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.colors {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: 100px;
+  grid-template-areas:
+    "   a    b"
+    "   a    b"
+    "   a    b"
+    "   c    d"
+    "   c    d"
+    "   c    d";
+  align-self: center;
+  position: relative;
+  left: 250px;
+  bottom: 70px;
+}
+
+#cir1 {
+  grid-area: a;
+  background-color: rgb(6, 34, 126);
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+
+#cir2 {
+  grid-area: b;
+  background-color: rgb(24, 90, 38);
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+
+#cir3 {
+  grid-area: c;
+  background-color: rgb(163, 10, 10);
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+
+#cir4 {
+  grid-area: d;
+  background-color: rgb(185, 185, 11);
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+
+#startDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  bottom: 150px;
+}
+
+.hidden {
+  display: none;
+}
+
+#resetDiv {
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 525px;
+  bottom: 190px;
+}
+
+@media only screen and (max-width: 1639px) {
+  #high-score {
     align-items: right;
     box-sizing: border-box;
     border: 5px solid black;
@@ -18,96 +121,86 @@
     height: 70px;
     text-align: center;
     position: relative;
-    bottom: 100px;
-    left: 20px;
-}
-
-body {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-.colors {
+    bottom: 70px;
+    left: 250px;
+  }
+  .colors {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
     grid-auto-rows: 100px;
     grid-template-areas:
-        " a    b"
-        " a    b"
-        " a    b"
-        " c    d"
-        " c    d"
-        " c    d";
+      "  a    b"
+      "  a    b"
+      "  a    b"
+      "  c    d"
+      "  c    d"
+      "  c    d";
     align-self: center;
     position: relative;
-    left: 250px;
+    left: 460px;
     bottom: 70px;
-}
+  }
 
-#cir1 {
+  #cir1 {
     grid-area: a;
     background-color: rgb(6, 34, 126);
     border-radius: 50%;
     width: 300px;
     height: 300px;
-}
+  }
 
-#cir2 {
+  #cir2 {
     grid-area: b;
     background-color: rgb(24, 90, 38);
     border-radius: 50%;
     width: 300px;
     height: 300px;
-}
+  }
 
-#cir3 {
+  #cir3 {
     grid-area: c;
     background-color: rgb(163, 10, 10);
     border-radius: 50%;
     width: 300px;
     height: 300px;
-}
+  }
 
-#cir4 {
+  #cir4 {
     grid-area: d;
     background-color: rgb(185, 185, 11);
     border-radius: 50%;
     width: 300px;
     height: 300px;
-}
-
-#startDiv {
+  }
+  #startDiv {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    bottom: 150px
-}
+    bottom: 150px;
+  }
 
-.hidden {
+  .hidden {
     display: none;
-}
+  }
 
-#resetDiv {
+  #resetDiv {
     justify-content: center;
     align-items: center;
     position: relative;
-    top: 175px;
-    left: 925px;
+    left: 525px;
+    bottom: 190px;
+  }
+
+  #scoreBoard {
+    box-sizing: border-box;
+    border: 5px solid black;
+    border-radius: 50%;
+    text-align: center;
+    width: 150px;
+    position: relative;
+    left: 735px;
+    bottom: 430px;
+  }
 }
