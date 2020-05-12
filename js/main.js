@@ -154,7 +154,7 @@ function endPlayerTurn() {
 function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
-    
+
   }
   score.innerHTML = round;
 
