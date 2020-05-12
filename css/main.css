@@ -18,62 +18,93 @@
   grid-row: 1/2;
   background-color: rgb(6, 34, 126);
 }
- #cir2 {
-   grid-column: 3/4;
-   grid-row: 1/2;
-   background-color: rgb(24, 90, 38);
- }
- #cir3 {
-   grid-column: 1/2;
-   grid-row: 3/4;
-   background-color: rgb(163, 10, 10);
- }
 
- #cir4 {
-   grid-column: 3/4;
-   grid-row: 3/4;
-   background-color: rgb(185, 185, 11);
- }
+#cir2 {
+  grid-column: 3/4;
+  grid-row: 1/2;
+  background-color: rgb(24, 90, 38);
+}
 
- #scoreBoard {
-   grid-column: 2/3;
-   grid-row: 2/3;
-   box-sizing: border-box;
-   border: 5px solid black;
-   border-radius: 50%;
-   text-align: center;
-   width: 150px;
-   justify-self: center;
- }
+#cir3 {
+  grid-column: 1/2;
+  grid-row: 3/4;
+  background-color: rgb(163, 10, 10);
+}
 
- .header {
-   display: grid;
-   grid-template-column: 1fr 1fr 1fr;
-   grid-template-rows: auto auto;
- }
+#cir4 {
+  grid-column: 3/4;
+  grid-row: 3/4;
+  background-color: rgb(185, 185, 11);
+}
 
- #title {
-   grid-column: 1/4;
-   text-align: center;
-   font-family: 'Shrikhand', cursive;
-   font-size: 100px;
- }
+#scoreBoard {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  box-sizing: border-box;
+  border: 5px solid black;
+  border-radius: 50%;
+  text-align: center;
+  width: 150px;
+  justify-self: center;
+}
 
- #message {
-   font-family: 'Raleway', sans-serif;
-   grid-column: 2/3;
-   text-align: center;
-   align-self: center;
- }
+.header {
+  display: grid;
+  grid-template-column: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+}
 
- #high-score {
-   justify-self: center;
-   box-sizing: border-box;
-   border: 5px solid black;
-   width: 150px;
-   height: 70px;
-   text-align: center;
-   bottom: 100px;
-   left: 20px;
- }
+#title {
+  grid-column: 1/4;
+  text-align: center;
+  font-family: 'Shrikhand', cursive;
+  font-size: 100px;
+}
 
+#message {
+  font-family: 'Raleway', sans-serif;
+  grid-column: 2/3;
+  text-align: center;
+  align-self: center;
+}
+
+#high-score {
+  justify-self: center;
+  box-sizing: border-box;
+  border: 5px solid black;
+  width: 150px;
+  height: 70px;
+  text-align: center;
+  bottom: 100px;
+  left: 20px;
+}
+
+div.hidden {
+  display: none;
+}
+
+.game-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
