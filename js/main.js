@@ -154,9 +154,7 @@ function endPlayerTurn() {
 function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
-    msgEl.innerHTML = `Wrong answer!! Ready to try again?
-  Press reset to test your memory!`
-    endPlayerTurn();
+    
   }
   score.innerHTML = round;
 
