@@ -11,6 +11,8 @@ let winner = false;
 let blink = 0;
 let interval;
 let tempo = 1000;
+let tempoTwo = 1500;
+let storedScores = [];
 
 //cached Elements
 const msgEl = document.getElementById("message");
@@ -28,6 +30,13 @@ const score = document.getElementById("score");
 const simonButtons = document.querySelectorAll(".circle-button");
 const highScore = document.getElementById("high");
 
+const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+const scores = {
+  score: highScores,
+};
+
+console.log(score);
 //event listeners
 
 // Start Button
@@ -89,7 +98,7 @@ function play() {
   if (round === 1) {
     getRandomColor();
   }
-  interval = setInterval(gameTurn, 1500);
+  interval = setInterval(gameTurn, tempoTwo);
 }
 
 function getRandomColor() {
@@ -215,23 +224,23 @@ circleFour.addEventListener("click", function () {
 });
 
 function mediumTempo() {
-  interval = 700;
+  tempoTwo = 1200;
   if (round < 3 && round < 6) {
     tempo = 800;
   } else if (round > 6 && round < 10) {
-    tempo = 500;
+    tempo = 600;
   } else {
-    tempo = 200;
+    tempo = 500;
   }
 }
 
 function hardTempo() {
-  interval = 500;
+  tempoTwo = 800;
   if (round < 6) {
-    tempo = 40;
+    tempo = 400;
   } else if (round >= 6 && round < 11) {
-    tempo = 200;
+    tempo = 400;
   } else {
-    tempo = 100;
+    tempo = 400;
   }
 }
