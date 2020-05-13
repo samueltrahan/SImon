@@ -60,7 +60,6 @@ function init() {
 }
 
 function play() {
-  msgEl.innerHTML = "Follow the colors!";
   if (round === 1) {
     getRandomColor();
   }
@@ -76,6 +75,7 @@ function getRandomColor() {
 function gameTurn() {
   if (compTurn) {
     handleBlink();
+    msgEl.innerHTML = "Follow the colors!";
     blink++;
   }
 
@@ -97,11 +97,6 @@ function handleBlink() {
     blinkButton(4);
   }
 }
-// function setSound() {
-//   setTimeout(function () {
-//     simon.play();
-//   }, 500);
-// }
 
 function blinkButton(buttonNum) {
   if (buttonNum === 1) {
@@ -143,7 +138,7 @@ function startPlayerTurn() {
     } else if (round === 20) {
       msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
     Press restart to try again!`;
-    init();
+      endGame();
     }
   }, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
@@ -166,7 +161,8 @@ function endPlayerTurn() {
 function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
-    endGame();
+    msgEl.innerHTML = `Wrong answer! Press reset to try again!`;
+    return;
   }
   score.innerHTML = round;
 
@@ -191,8 +187,6 @@ circleFour.addEventListener("click", function () {
 });
 
 function endGame() {
-  if (!winner) {
-    msgEl.innerHTML = `Wrong answer! Ready to try again?`;
-    init();
-  }
+  clearInterval(interval);
+  return;
 }
