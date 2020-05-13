@@ -19,7 +19,7 @@ const circleTwo = document.getElementById("cir2");
 const circleThree = document.getElementById("cir3");
 const circleFour = document.getElementById("cir4");
 const score = document.getElementById("score");
-const simonButtons = document.querySelectorAll(".circleButton");
+const simonButtons = document.querySelectorAll(".circle-button");
 
 //event listeners
 
@@ -142,6 +142,7 @@ function startPlayerTurn() {
 function endPlayerTurn() {
   for (let i = 0; i < simonButtons.length; i++) {
     simonButtons[i].setAttribute("disabled", true);
+    endGame();
   }
   blinkCheck = 0;
   compTurn = true;
@@ -154,6 +155,7 @@ function endPlayerTurn() {
 function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
+    endGame();
   }
   score.innerHTML = round;
 
@@ -176,3 +178,10 @@ circleThree.addEventListener("click", function () {
 circleFour.addEventListener("click", function () {
   handleSimonButton(4);
 });
+
+function endGame() {
+  if (!winner) {
+    msgEl.innerHTML = `Wrong answer! Ready to try again?`;
+    init();
+  }
+}
