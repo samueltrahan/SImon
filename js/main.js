@@ -10,6 +10,7 @@ let compTurn = true;
 let winner = false;
 let blink = 0;
 let interval;
+let tempo = 1000;
 
 //cached Elements
 const msgEl = document.getElementById("message");
@@ -23,6 +24,7 @@ const circleThree = document.getElementById("cir3");
 const circleFour = document.getElementById("cir4");
 const score = document.getElementById("score");
 const simonButtons = document.querySelectorAll(".circle-button");
+const highScore = document.getElementById("high");
 
 //event listeners
 
@@ -104,25 +106,25 @@ function blinkButton(buttonNum) {
     setTimeout(function () {
       simon.play();
       circleOne.style.backgroundColor = "rgb(6, 34, 126)";
-    }, 1000);
+    }, tempo);
   } else if (buttonNum === 2) {
     circleTwo.style.backgroundColor = "rgb(77, 165, 96)";
     setTimeout(function () {
       simon.play();
       circleTwo.style.backgroundColor = "rgb(24, 90, 38)";
-    }, 1000);
+    }, tempo);
   } else if (buttonNum === 3) {
     circleThree.style.backgroundColor = "rgb(230, 97, 97)";
     setTimeout(function () {
       simon.play();
       circleThree.style.backgroundColor = "rgb(163, 10, 10)";
-    }, 1000);
+    }, tempo);
   } else {
     circleFour.style.backgroundColor = "rgb(243, 243, 106)";
     setTimeout(function () {
       simon.play();
       circleFour.style.backgroundColor = "rgb(185, 185, 11)";
-    }, 1000);
+    }, tempo);
   }
 }
 
@@ -138,7 +140,7 @@ function startPlayerTurn() {
     } else if (round === 20) {
       msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
     Press restart to try again!`;
-      endGame();
+      return;
     }
   }, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
@@ -161,7 +163,8 @@ function endPlayerTurn() {
 function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
-    msgEl.innerHTML = `Wrong answer! Press reset to try again!`;
+    msgEl.innerHTML = `Wrong answer! Press restart to try again!`;
+    highScore.innerHTML = round;
     return;
   }
   score.innerHTML = round;
@@ -186,7 +189,22 @@ circleFour.addEventListener("click", function () {
   handleSimonButton(4);
 });
 
-function endGame() {
-  clearInterval(interval);
-  return;
+function mediumTempo() {
+  if (round < 3 && round < 6) {
+    tempo = 1000;
+  } else if (round > 6 && round < 10) {
+    tempo = 700;
+  } else {
+    tempo = 400;
+  }
+}
+
+function hardTempo() {
+  if (round < 6) {
+    tempo = 700;
+  } else if (round >= 6 && round < 11) {
+    tempo = 400;
+  } else {
+    tempo = 300;
+  }
 }
