@@ -131,7 +131,7 @@ function startPlayerTurn() {
     } else if (round === 20) {
       msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
     Press restart to try again!`;
-      init();
+      console.log("who dat");
     }
   }, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
@@ -142,7 +142,6 @@ function startPlayerTurn() {
 function endPlayerTurn() {
   for (let i = 0; i < simonButtons.length; i++) {
     simonButtons[i].setAttribute("disabled", true);
-    endGame();
   }
   blinkCheck = 0;
   compTurn = true;
