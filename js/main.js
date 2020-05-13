@@ -9,35 +9,35 @@ let blink = 0;
 let interval;
 
 //cached Elements
-const msgEl = document.getElementById('message');
-const resetDiv = document.getElementById('resetDiv');
-const resetBtn = document.getElementById('resetBtn');
-const startDiv = document.getElementById('startDiv');
-const startBtn = document.getElementById('startBtn');
-const circleOne = document.getElementById('cir1');
-const circleTwo = document.getElementById('cir2');
-const circleThree = document.getElementById('cir3');
-const circleFour = document.getElementById('cir4');
-const score = document.getElementById('score');
-const simonButtons = document.querySelectorAll('.circleButton');
+const msgEl = document.getElementById("message");
+const resetDiv = document.getElementById("resetDiv");
+const resetBtn = document.getElementById("resetBtn");
+const startDiv = document.getElementById("startDiv");
+const startBtn = document.getElementById("startBtn");
+const circleOne = document.getElementById("cir1");
+const circleTwo = document.getElementById("cir2");
+const circleThree = document.getElementById("cir3");
+const circleFour = document.getElementById("cir4");
+const score = document.getElementById("score");
+const simonButtons = document.querySelectorAll(".circleButton");
 
 //event listeners
 
 // Start Button
-startBtn.addEventListener('click', startGame);
+startBtn.addEventListener("click", startGame);
 
 // Reset Button
-resetBtn.addEventListener('click', function () {
-  resetDiv.setAttribute('class', 'hidden');
-  startDiv.setAttribute('class', '');
+resetBtn.addEventListener("click", function () {
+  resetDiv.setAttribute("class", "hidden");
+  startDiv.setAttribute("class", "game-button");
   score.innerHTML = 0;
   init();
 });
 
 function startGame(event) {
   if (event.target.innerText) {
-    startDiv.setAttribute('class', 'hidden');
-    resetDiv.setAttribute('class', '');
+    startDiv.setAttribute("class", "hidden");
+    resetDiv.setAttribute("class", "game-button");
   }
   setTimeout(function () {
     play();
@@ -57,7 +57,7 @@ function init() {
 }
 
 function play() {
-  msgEl.innerHTML = 'Follow the colors!';
+  msgEl.innerHTML = "Follow the colors!";
   if (round === 1) {
     getRandomColor();
   }
@@ -97,37 +97,37 @@ function handleBlink() {
 
 function blinkButton(buttonNum) {
   if (buttonNum === 1) {
-    circleOne.style.backgroundColor = 'rgb(76, 116, 247)';
+    circleOne.style.backgroundColor = "rgb(76, 116, 247)";
     setTimeout(function () {
-      circleOne.style.backgroundColor = 'rgb(6, 34, 126)';
+      circleOne.style.backgroundColor = "rgb(6, 34, 126)";
     }, 300);
   } else if (buttonNum === 2) {
-    circleTwo.style.backgroundColor = 'rgb(77, 165, 96)';
+    circleTwo.style.backgroundColor = "rgb(77, 165, 96)";
     setTimeout(function () {
-      circleTwo.style.backgroundColor = 'rgb(24, 90, 38)';
+      circleTwo.style.backgroundColor = "rgb(24, 90, 38)";
     }, 300);
   } else if (buttonNum === 3) {
-    circleThree.style.backgroundColor = 'rgb(230, 97, 97)';
+    circleThree.style.backgroundColor = "rgb(230, 97, 97)";
     setTimeout(function () {
-      circleThree.style.backgroundColor = 'rgb(163, 10, 10)';
+      circleThree.style.backgroundColor = "rgb(163, 10, 10)";
     }, 300);
   } else {
-    circleFour.style.backgroundColor = 'rgb(243, 243, 106)';
+    circleFour.style.backgroundColor = "rgb(243, 243, 106)";
     setTimeout(function () {
-      circleFour.style.backgroundColor = 'rgb(185, 185, 11)';
+      circleFour.style.backgroundColor = "rgb(185, 185, 11)";
     }, 300);
   }
 }
 
 function startPlayerTurn() {
   setTimeout(function () {
-    msgEl.innerHTML = `Press the correct colors!`
-  }, 500)
+    msgEl.innerHTML = `Press the correct colors!`;
+  }, 500);
   setTimeout(function () {
     if (round === 5) {
-      msgEl.innerHTML = `Good Job! You got ${round} in a row!!`
+      msgEl.innerHTML = `Good Job! You got ${round} in a row!!`;
     } else if (round === 10) {
-      msgEl.innerHTML = `Way to go! That's ${round}! Keep it up!`
+      msgEl.innerHTML = `Way to go! That's ${round}! Keep it up!`;
     } else if (round === 20) {
       msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
     Press restart to try again!`;
@@ -135,13 +135,13 @@ function startPlayerTurn() {
     }
   }, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
-    simonButtons[i].removeAttribute('disabled');
+    simonButtons[i].removeAttribute("disabled");
   }
 }
 
 function endPlayerTurn() {
   for (let i = 0; i < simonButtons.length; i++) {
-    simonButtons[i].setAttribute('disabled', true);
+    simonButtons[i].setAttribute("disabled", true);
   }
   blinkCheck = 0;
   compTurn = true;
@@ -154,7 +154,6 @@ function endPlayerTurn() {
 function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
-
   }
   score.innerHTML = round;
 
@@ -165,15 +164,15 @@ function handleSimonButton(buttonNum) {
   }
 }
 
-circleOne.addEventListener('click', function () {
+circleOne.addEventListener("click", function () {
   handleSimonButton(1);
 });
-circleTwo.addEventListener('click', function () {
+circleTwo.addEventListener("click", function () {
   handleSimonButton(2);
 });
-circleThree.addEventListener('click', function () {
+circleThree.addEventListener("click", function () {
   handleSimonButton(3);
 });
-circleFour.addEventListener('click', function () {
+circleFour.addEventListener("click", function () {
   handleSimonButton(4);
 });
