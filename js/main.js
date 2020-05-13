@@ -17,7 +17,9 @@ const msgEl = document.getElementById("message");
 const resetDiv = document.getElementById("resetDiv");
 const resetBtn = document.getElementById("resetBtn");
 const startDiv = document.getElementById("startDiv");
-const startBtn = document.getElementById("startBtn");
+const easy = document.getElementById("easy");
+const medium = document.getElementById("medium");
+const hard = document.getElementById("hard");
 const circleOne = document.getElementById("cir1");
 const circleTwo = document.getElementById("cir2");
 const circleThree = document.getElementById("cir3");
@@ -29,7 +31,7 @@ const highScore = document.getElementById("high");
 //event listeners
 
 // Start Button
-startBtn.addEventListener("click", startGame);
+easy.addEventListener("click", startGame);
 
 // Reset Button
 resetBtn.addEventListener("click", function () {
@@ -48,6 +50,28 @@ function startGame(event) {
     play();
   }, 700);
 }
+
+medium.addEventListener("click", function () {
+  if (event.target.innerText) {
+    startDiv.setAttribute("class", "hidden");
+    resetDiv.setAttribute("class", "game-button");
+  }
+  setTimeout(function () {
+    mediumTempo();
+    play();
+  }, 700);
+});
+
+hard.addEventListener("click", function () {
+  if (event.target.innerText) {
+    startDiv.setAttribute("class", "hidden");
+    resetDiv.setAttribute("class", "game-button");
+  }
+  setTimeout(function () {
+    hardTempo();
+    play();
+  }, 700);
+});
 
 function init() {
   msgEl.innerHTML = `Press start to play`;
@@ -69,7 +93,7 @@ function play() {
 }
 
 function getRandomColor() {
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 20; i++) {
     gameArray.push(Math.floor(Math.random() * 4) + 1);
   }
 }
@@ -103,26 +127,27 @@ function handleBlink() {
 function blinkButton(buttonNum) {
   if (buttonNum === 1) {
     circleOne.style.backgroundColor = "rgb(76, 116, 247)";
+    simon.playbackRate = 0.5;
+    simon.play();
     setTimeout(function () {
-      simon.play();
       circleOne.style.backgroundColor = "rgb(6, 34, 126)";
     }, tempo);
   } else if (buttonNum === 2) {
     circleTwo.style.backgroundColor = "rgb(77, 165, 96)";
+    simon.play();
     setTimeout(function () {
-      simon.play();
       circleTwo.style.backgroundColor = "rgb(24, 90, 38)";
     }, tempo);
   } else if (buttonNum === 3) {
     circleThree.style.backgroundColor = "rgb(230, 97, 97)";
+    simon.play();
     setTimeout(function () {
-      simon.play();
       circleThree.style.backgroundColor = "rgb(163, 10, 10)";
     }, tempo);
   } else {
     circleFour.style.backgroundColor = "rgb(243, 243, 106)";
+    simon.play();
     setTimeout(function () {
-      simon.play();
       circleFour.style.backgroundColor = "rgb(185, 185, 11)";
     }, tempo);
   }
@@ -190,21 +215,23 @@ circleFour.addEventListener("click", function () {
 });
 
 function mediumTempo() {
+  interval = 700;
   if (round < 3 && round < 6) {
-    tempo = 1000;
+    tempo = 800;
   } else if (round > 6 && round < 10) {
-    tempo = 700;
+    tempo = 500;
   } else {
-    tempo = 400;
+    tempo = 200;
   }
 }
 
 function hardTempo() {
+  interval = 500;
   if (round < 6) {
-    tempo = 700;
+    tempo = 40;
   } else if (round >= 6 && round < 11) {
-    tempo = 400;
+    tempo = 200;
   } else {
-    tempo = 300;
+    tempo = 100;
   }
 }
