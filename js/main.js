@@ -1,3 +1,6 @@
+const simon = new Audio("audio/beep-6.wav");
+const simonSound = new Audio("audio/beep20.wav");
+
 // state variable //
 let gameArray = [];
 let matchArray = true;
@@ -61,11 +64,11 @@ function play() {
   if (round === 1) {
     getRandomColor();
   }
-  interval = setInterval(gameTurn, 800);
+  interval = setInterval(gameTurn, 1500);
 }
 
 function getRandomColor() {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 4; i++) {
     gameArray.push(Math.floor(Math.random() * 4) + 1);
   }
 }
@@ -94,28 +97,37 @@ function handleBlink() {
     blinkButton(4);
   }
 }
+// function setSound() {
+//   setTimeout(function () {
+//     simon.play();
+//   }, 500);
+// }
 
 function blinkButton(buttonNum) {
   if (buttonNum === 1) {
     circleOne.style.backgroundColor = "rgb(76, 116, 247)";
     setTimeout(function () {
+      simon.play();
       circleOne.style.backgroundColor = "rgb(6, 34, 126)";
-    }, 300);
+    }, 1000);
   } else if (buttonNum === 2) {
     circleTwo.style.backgroundColor = "rgb(77, 165, 96)";
     setTimeout(function () {
+      simon.play();
       circleTwo.style.backgroundColor = "rgb(24, 90, 38)";
-    }, 300);
+    }, 1000);
   } else if (buttonNum === 3) {
     circleThree.style.backgroundColor = "rgb(230, 97, 97)";
     setTimeout(function () {
+      simon.play();
       circleThree.style.backgroundColor = "rgb(163, 10, 10)";
-    }, 300);
+    }, 1000);
   } else {
     circleFour.style.backgroundColor = "rgb(243, 243, 106)";
     setTimeout(function () {
+      simon.play();
       circleFour.style.backgroundColor = "rgb(185, 185, 11)";
-    }, 300);
+    }, 1000);
   }
 }
 
@@ -124,14 +136,14 @@ function startPlayerTurn() {
     msgEl.innerHTML = `Press the correct colors!`;
   }, 500);
   setTimeout(function () {
-    if (round === 5) {
-      msgEl.innerHTML = `Good Job! You got ${round} in a row!!`;
-    } else if (round === 10) {
-      msgEl.innerHTML = `Way to go! That's ${round}! Keep it up!`;
+    if (round === 6) {
+      msgEl.innerHTML = `Good Job! You got 5 in a row!!`;
+    } else if (round === 11) {
+      msgEl.innerHTML = `Way to go! That's 10! Keep it up!`;
     } else if (round === 20) {
       msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
     Press restart to try again!`;
-      console.log("who dat");
+    init();
     }
   }, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
