@@ -1,5 +1,6 @@
 const simon = new Audio("audio/beep-6.wav");
 const simonSound = new Audio("audio/beep20.wav");
+const sound = new Audio("audio/robotbleep2.wav");
 
 // state variable //
 let gameArray = [];
@@ -29,14 +30,8 @@ const circleFour = document.getElementById("cir4");
 const score = document.getElementById("score");
 const simonButtons = document.querySelectorAll(".circle-button");
 const highScore = document.getElementById("high");
+const storage = localStorage.setItem("scores", storedScores);
 
-const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-
-const scores = {
-  score: highScores,
-};
-
-console.log(score);
 //event listeners
 
 // Start Button
@@ -136,26 +131,30 @@ function handleBlink() {
 function blinkButton(buttonNum) {
   if (buttonNum === 1) {
     circleOne.style.backgroundColor = "rgb(76, 116, 247)";
-    simon.playbackRate = 0.5;
-    simon.play();
+    sound.play();
+    //simon.play();
     setTimeout(function () {
       circleOne.style.backgroundColor = "rgb(6, 34, 126)";
     }, tempo);
   } else if (buttonNum === 2) {
     circleTwo.style.backgroundColor = "rgb(77, 165, 96)";
-    simon.play();
+    sound.play();
+    //simon.play();
     setTimeout(function () {
       circleTwo.style.backgroundColor = "rgb(24, 90, 38)";
     }, tempo);
   } else if (buttonNum === 3) {
     circleThree.style.backgroundColor = "rgb(230, 97, 97)";
-    simon.play();
+    //simonSound.play();
+    sound.play();
+    //simon.play();
     setTimeout(function () {
       circleThree.style.backgroundColor = "rgb(163, 10, 10)";
     }, tempo);
   } else {
     circleFour.style.backgroundColor = "rgb(243, 243, 106)";
-    simon.play();
+    sound.play();
+    //simon.play();
     setTimeout(function () {
       circleFour.style.backgroundColor = "rgb(185, 185, 11)";
     }, tempo);
@@ -167,12 +166,12 @@ function startPlayerTurn() {
     msgEl.innerHTML = `Press the correct colors!`;
   }, 500);
   setTimeout(function () {
-    if (round === 6) {
-      msgEl.innerHTML = `Good Job! You got 5 in a row!!`;
-    } else if (round === 11) {
-      msgEl.innerHTML = `Way to go! That's 10! Keep it up!`;
-    } else if (round === 20) {
-      msgEl.innerHTML = `Congratulations! You're memory is no match for this match!
+    if (round === 1) {
+      msgEl.innerHTML = `Good Job! You got ${round} in a row!!`;
+    } else if (round === 3) {
+      msgEl.innerHTML = `Way to go! That's ${round}! Keep it up!`;
+    } else if (round === 5) {
+      msgEl.innerHTML = `Congratulations! You're memory is no match for this game!
     Press restart to try again!`;
       return;
     }
@@ -198,13 +197,14 @@ function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
     msgEl.innerHTML = `Wrong answer! Press restart to try again!`;
-    highScore.innerHTML = round;
+    storedScores.push(round);
+    highScore.innerHTML = localStorage.getItem("scores");
     return;
   }
-  score.innerHTML = round;
 
   if (blinkCheck === round - 1) {
     endPlayerTurn();
+    score.innerHTML = round - 1;
   } else {
     blinkCheck++;
   }
@@ -226,20 +226,20 @@ circleFour.addEventListener("click", function () {
 function mediumTempo() {
   tempoTwo = 1200;
   if (round < 3 && round < 6) {
-    tempo = 800;
+    tempo = 900;
   } else if (round > 6 && round < 10) {
-    tempo = 600;
+    tempo = 700;
   } else {
-    tempo = 500;
+    tempo = 400;
   }
 }
 
 function hardTempo() {
-  tempoTwo = 800;
+  tempoTwo = 1000;
   if (round < 6) {
-    tempo = 400;
+    tempo = 600;
   } else if (round >= 6 && round < 11) {
-    tempo = 400;
+    tempo = 500;
   } else {
     tempo = 400;
   }
