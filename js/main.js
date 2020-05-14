@@ -13,7 +13,8 @@ let blink = 0;
 let interval;
 let tempo = 1000;
 let tempoTwo = 1500;
-let highScores = getHighScore() || 0;
+let highScoreElement = getHighScore() || 0;
+let currentScore = 0;
 
 //cached Elements
 const msgEl = document.getElementById("message");
@@ -29,7 +30,7 @@ const circleThree = document.getElementById("cir3");
 const circleFour = document.getElementById("cir4");
 const score = document.getElementById("score");
 const simonButtons = document.querySelectorAll(".circle-button");
-const highScore = document.getElementById("high");
+const highScoreBoard = document.getElementById("high-score-board");
 
 //event listeners
 
@@ -190,6 +191,7 @@ function endPlayerTurn() {
   blinkCheck = 0;
   compTurn = true;
   round++;
+  currentScore++;
   play();
 }
 
@@ -203,8 +205,8 @@ function handleSimonButton(buttonNum) {
   }
 
   if (blinkCheck === round - 1) {
+    setHighScore(currentScore);
     endPlayerTurn();
-    setHighScore();
     score.innerHTML = round - 1;
   } else {
     blinkCheck++;
@@ -215,10 +217,10 @@ function getHighScore() {
   localStorage.getItem("highScores");
 }
 
-highScore.innerHTML = setHighScore(currentScore);
+highScoreBoard.innerHTML = highScoreElement;
 
 function setHighScore(currentScore) {
-  if (currentScore > highScores) {
+  if (currentScore > highScoreElement) {
     localStorage.setItem("highScores", currentScore);
   }
 }
@@ -269,6 +271,7 @@ function endGame() {
   blinkCheck = 0;
   winner = false;
   blink = 0;
+  currentScore = 0;
   clearInterval(interval);
   return;
 }
