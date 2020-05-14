@@ -31,10 +31,6 @@ const score = document.getElementById("score");
 const simonButtons = document.querySelectorAll(".circle-button");
 const highScore = document.getElementById("high");
 
-// function getHighScores() {
-//   if()
-// }
-
 //event listeners
 
 // Start Button
@@ -90,7 +86,6 @@ function init() {
   winner = false;
   blink = 0;
   clearInterval(interval);
-  getHighScore();
 }
 
 function play() {
@@ -98,6 +93,7 @@ function play() {
     getRandomColor();
   }
   interval = setInterval(gameTurn, tempoTwo);
+  getHighScore();
 }
 
 function getRandomColor() {
@@ -194,7 +190,6 @@ function endPlayerTurn() {
   blinkCheck = 0;
   compTurn = true;
   round++;
-  setHighScore();
   play();
 }
 
@@ -209,6 +204,7 @@ function handleSimonButton(buttonNum) {
 
   if (blinkCheck === round - 1) {
     endPlayerTurn();
+    setHighScore();
     score.innerHTML = round - 1;
   } else {
     blinkCheck++;
@@ -219,10 +215,11 @@ function getHighScore() {
   localStorage.getItem("highScores");
 }
 
+highScore.innerHTML = setHighScore(currentScore);
+
 function setHighScore(currentScore) {
   if (currentScore > highScores) {
     localStorage.setItem("highScores", currentScore);
-    highScore.innerHTML = currentScore;
   }
 }
 
