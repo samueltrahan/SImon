@@ -13,7 +13,6 @@ let blink = 0;
 let interval;
 let tempo = 1000;
 let tempoTwo = 1500;
-let storedScores = [];
 
 //cached Elements
 const msgEl = document.getElementById("message");
@@ -30,7 +29,10 @@ const circleFour = document.getElementById("cir4");
 const score = document.getElementById("score");
 const simonButtons = document.querySelectorAll(".circle-button");
 const highScore = document.getElementById("high");
-const storage = localStorage.setItem("scores", storedScores);
+
+// function getHighScores() {
+//   if()
+// }
 
 //event listeners
 
@@ -97,7 +99,7 @@ function play() {
 }
 
 function getRandomColor() {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 20; i++) {
     gameArray.push(Math.floor(Math.random() * 4) + 1);
   }
 }
@@ -131,6 +133,7 @@ function handleBlink() {
 function blinkButton(buttonNum) {
   if (buttonNum === 1) {
     circleOne.style.backgroundColor = "rgb(76, 116, 247)";
+    Audio.volume = 0.5;
     sound.play();
     //simon.play();
     setTimeout(function () {
@@ -138,6 +141,7 @@ function blinkButton(buttonNum) {
     }, tempo);
   } else if (buttonNum === 2) {
     circleTwo.style.backgroundColor = "rgb(77, 165, 96)";
+    Audio.volume = 0.5;
     sound.play();
     //simon.play();
     setTimeout(function () {
@@ -145,6 +149,7 @@ function blinkButton(buttonNum) {
     }, tempo);
   } else if (buttonNum === 3) {
     circleThree.style.backgroundColor = "rgb(230, 97, 97)";
+    Audio.volume = 0.5;
     //simonSound.play();
     sound.play();
     //simon.play();
@@ -153,6 +158,7 @@ function blinkButton(buttonNum) {
     }, tempo);
   } else {
     circleFour.style.backgroundColor = "rgb(243, 243, 106)";
+    Audio.volume = 0.5;
     sound.play();
     //simon.play();
     setTimeout(function () {
@@ -216,6 +222,18 @@ function handleSimonButton(buttonNum) {
   } else {
     blinkCheck++;
   }
+  getHighScore();
+}
+
+function getHighScore() {
+  let storage = "scores";
+  let value = [];
+  value.push(round - 1);
+  localStorage.setItem(storage, JSON.stringify(value));
+  let highestScore = JSON.parse(localStorage.getItem(storage));
+  if (value <= highestScore) {
+    highScore.innerHTML = highestScore;
+  } else highScore.innerHTML = value;
 }
 
 circleOne.addEventListener("click", function () {
