@@ -13,6 +13,7 @@ let blink = 0;
 let interval;
 let tempo = 1000;
 let tempoTwo = 1500;
+let highScores = getHighScore() || 0;
 
 //cached Elements
 const msgEl = document.getElementById("message");
@@ -89,6 +90,7 @@ function init() {
   winner = false;
   blink = 0;
   clearInterval(interval);
+  getHighScore();
 }
 
 function play() {
@@ -133,7 +135,7 @@ function handleBlink() {
 function blinkButton(buttonNum) {
   if (buttonNum === 1) {
     circleOne.style.backgroundColor = "rgb(76, 116, 247)";
-    Audio.volume = 0.5;
+    sound.volume = 0.2;
     sound.play();
     //simon.play();
     setTimeout(function () {
@@ -141,7 +143,7 @@ function blinkButton(buttonNum) {
     }, tempo);
   } else if (buttonNum === 2) {
     circleTwo.style.backgroundColor = "rgb(77, 165, 96)";
-    Audio.volume = 0.5;
+    sound.volume = 0.2;
     sound.play();
     //simon.play();
     setTimeout(function () {
@@ -149,7 +151,7 @@ function blinkButton(buttonNum) {
     }, tempo);
   } else if (buttonNum === 3) {
     circleThree.style.backgroundColor = "rgb(230, 97, 97)";
-    Audio.volume = 0.5;
+    sound.volume = 0.2;
     //simonSound.play();
     sound.play();
     //simon.play();
@@ -158,7 +160,7 @@ function blinkButton(buttonNum) {
     }, tempo);
   } else {
     circleFour.style.backgroundColor = "rgb(243, 243, 106)";
-    Audio.volume = 0.5;
+    sound.volume = 0.2;
     sound.play();
     //simon.play();
     setTimeout(function () {
@@ -171,18 +173,6 @@ function startPlayerTurn() {
   setTimeout(function () {
     msgEl.innerHTML = `Press the correct colors!`;
   }, 500);
-  // setTimeout(function () {
-  //   if (round === 1) {
-  //     msgEl.innerHTML = `Good Job! You got ${blinkCheck} in a row!!`;
-  //   } else if (round === 2) {
-  //     msgEl.innerHTML = `Way to go! That's ${blinkCheck}! Keep it up!`;
-  //   } else if (round === 3) {
-  //     msgEl.innerHTML = `Congratulations! You're memory is no match for this game!
-  //   Press restart to try again!`;
-  //     endGame();
-  //     return;
-  //   }
-  // }, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
     simonButtons[i].removeAttribute("disabled");
   }
@@ -204,6 +194,7 @@ function endPlayerTurn() {
   blinkCheck = 0;
   compTurn = true;
   round++;
+  setHighScore();
   play();
 }
 
@@ -222,18 +213,17 @@ function handleSimonButton(buttonNum) {
   } else {
     blinkCheck++;
   }
-  getHighScore();
 }
 
 function getHighScore() {
-  let storage = "scores";
-  let value = [];
-  value.push(round - 1);
-  localStorage.setItem(storage, JSON.stringify(value));
-  let highestScore = JSON.parse(localStorage.getItem(storage));
-  if (value <= highestScore) {
-    highScore.innerHTML = highestScore;
-  } else highScore.innerHTML = value;
+  localStorage.getItem("highScores");
+}
+
+function setHighScore(currentScore) {
+  if (currentScore > highScores) {
+    localStorage.setItem("highScores", currentScore);
+    highScore.innerHTML = currentScore;
+  }
 }
 
 circleOne.addEventListener("click", function () {

@@ -1,5 +1,5 @@
 ![](images/simon-game.png)
-#Simon
+# Simon
 
 
 
@@ -42,7 +42,7 @@ The user picks a difficulty, the game starts when a difficulty is selected.  The
 
 ------
 
-##_Improvements_
+## _Improvements_
 - Add more circles when difficulty is chosen
 - Decrease the time between turns based upon difficulty chosen
 - Give the game a theme to choose before difficulty is selected
