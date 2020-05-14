@@ -97,7 +97,7 @@ function play() {
 }
 
 function getRandomColor() {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 5; i++) {
     gameArray.push(Math.floor(Math.random() * 4) + 1);
   }
 }
@@ -165,17 +165,18 @@ function startPlayerTurn() {
   setTimeout(function () {
     msgEl.innerHTML = `Press the correct colors!`;
   }, 500);
-  setTimeout(function () {
-    if (round === 1) {
-      msgEl.innerHTML = `Good Job! You got ${round} in a row!!`;
-    } else if (round === 3) {
-      msgEl.innerHTML = `Way to go! That's ${round}! Keep it up!`;
-    } else if (round === 5) {
-      msgEl.innerHTML = `Congratulations! You're memory is no match for this game!
-    Press restart to try again!`;
-      return;
-    }
-  }, 1200);
+  // setTimeout(function () {
+  //   if (round === 1) {
+  //     msgEl.innerHTML = `Good Job! You got ${blinkCheck} in a row!!`;
+  //   } else if (round === 2) {
+  //     msgEl.innerHTML = `Way to go! That's ${blinkCheck}! Keep it up!`;
+  //   } else if (round === 3) {
+  //     msgEl.innerHTML = `Congratulations! You're memory is no match for this game!
+  //   Press restart to try again!`;
+  //     endGame();
+  //     return;
+  //   }
+  // }, 1200);
   for (let i = 0; i < simonButtons.length; i++) {
     simonButtons[i].removeAttribute("disabled");
   }
@@ -185,6 +186,15 @@ function endPlayerTurn() {
   for (let i = 0; i < simonButtons.length; i++) {
     simonButtons[i].setAttribute("disabled", true);
   }
+  setTimeout(function () {
+    if (round === gameArray.length - 5) {
+      msgEl.innerHTML = `Good Job! You got ${round - 1} in a row!!`;
+    } else if (round === gameArray.length - 1) {
+      msgEl.innerHTML = `Congratulations! You're memory is no match for this game!
+      Press restart to try again!`;
+      endGame();
+    }
+  }, 1200);
   blinkCheck = 0;
   compTurn = true;
   round++;
@@ -197,8 +207,6 @@ function handleSimonButton(buttonNum) {
   blinkButton(buttonNum);
   if (gameArray[blinkCheck] !== buttonNum) {
     msgEl.innerHTML = `Wrong answer! Press restart to try again!`;
-    storedScores.push(round);
-    highScore.innerHTML = localStorage.getItem("scores");
     return;
   }
 
@@ -243,4 +251,19 @@ function hardTempo() {
   } else {
     tempo = 400;
   }
+}
+
+function endGame() {
+  for (let i = 0; i < simonButtons.length; i++) {
+    simonButtons[i].setAttribute("disabled", true);
+  }
+  compTurn = false;
+  gameArray = [];
+  matchArray = true;
+  round = 1;
+  blinkCheck = 0;
+  winner = false;
+  blink = 0;
+  clearInterval(interval);
+  return;
 }
