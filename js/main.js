@@ -1,171 +1,166 @@
-const simon = new Audio("audio/beep-6.wav");
-const simonSound = new Audio("audio/beep20.wav");
+//Audio files
 const sound = new Audio("audio/robotbleep2.wav");
 
 // state variable //
-let gameArray = [];
-let matchArray = true;
-let round = 1;
-let blinkCheck = 0;
-let compTurn = true;
-let winner = false;
-let blink = 0;
-let interval;
-let tempo = 1000;
-let tempoTwo = 1500;
-let highScoreElement = getHighScore() || 0;
+const solutionSequence = [];
+let solutionSequenceIndex = 0;
+let roundBlinkCount = 0;
+let roundInterval;
+let blinkDuration = 1000;
+let blinkGapDuration = 1500;
+let highScore = getHighScore() || 0;
+let currentRound = 1;
 let currentScore = 0;
+let isWinner = false;
 
 //cached Elements
 const msgEl = document.getElementById("message");
-const resetDiv = document.getElementById("resetDiv");
-const resetBtn = document.getElementById("resetBtn");
+const restartDiv = document.getElementById("restartDiv");
+const restartBtn = document.getElementById("restartBtn");
 const startDiv = document.getElementById("startDiv");
-const easy = document.getElementById("easy");
-const medium = document.getElementById("medium");
-const hard = document.getElementById("hard");
-const circleOne = document.getElementById("cir1");
-const circleTwo = document.getElementById("cir2");
-const circleThree = document.getElementById("cir3");
-const circleFour = document.getElementById("cir4");
-const score = document.getElementById("score");
-const simonButtons = document.querySelectorAll(".circle-button");
-const highScoreBoard = document.getElementById("high-score-board");
+const easyElement = document.getElementById("easy");
+const mediumElement = document.getElementById("medium");
+const hardElement = document.getElementById("hard");
+const blueSimonButton = document.getElementById("blue-simon-button");
+const greenSimonButton = document.getElementById("green-simon-button");
+const redSimonButton = document.getElementById("red-simon-button");
+const yellowSimonButton = document.getElementById("yellow-simon-button");
+const currentScoreElement = document.getElementById("score");
+const simonButtons = document.querySelectorAll(".simon-button");
+const highScoreElement = document.getElementById("high-score-board");
+
+
+highScoreElement.innerHTML = highScore;
 
 //event listeners
-
-// Start Button
-easy.addEventListener("click", startGame);
-
-// Reset Button
-resetBtn.addEventListener("click", function () {
-  resetDiv.setAttribute("class", "hidden");
-  startDiv.setAttribute("class", "game-button");
-  score.innerHTML = 0;
-  init();
-});
+//Difficulty buttons
+easyElement.addEventListener("click", startGame);
 
 function startGame(event) {
   if (event.target.innerText) {
     startDiv.setAttribute("class", "hidden");
-    resetDiv.setAttribute("class", "game-button");
+    restartDiv.setAttribute("class", "game-button");
   }
   setTimeout(function () {
-    play();
+    playGameSequence();
   }, 700);
 }
-
-medium.addEventListener("click", function () {
+mediumElement.addEventListener("click", function () {
   if (event.target.innerText) {
     startDiv.setAttribute("class", "hidden");
-    resetDiv.setAttribute("class", "game-button");
+    restartDiv.setAttribute("class", "game-button");
   }
   setTimeout(function () {
-    mediumTempo();
-    play();
+    setMediumTempo();
+    playGameSequence();
+  }, 700);
+});
+hardElement.addEventListener("click", function () {
+  if (event.target.innerText) {
+    startDiv.setAttribute("class", "hidden");
+    restartDiv.setAttribute("class", "game-button");
+  }
+  setTimeout(function () {
+    setHardTempo();
+    playGameSequence();
   }, 700);
 });
 
-hard.addEventListener("click", function () {
-  if (event.target.innerText) {
-    startDiv.setAttribute("class", "hidden");
-    resetDiv.setAttribute("class", "game-button");
-  }
-  setTimeout(function () {
-    hardTempo();
-    play();
-  }, 700);
+
+// Reset Button
+restartBtn.addEventListener("click", function () {
+  restartDiv.setAttribute("class", "hidden");
+  startDiv.setAttribute("class", "game-button");
+  score.innerHTML = 0;
+  restart();
 });
 
-function init() {
+
+
+function restart() {
   msgEl.innerHTML = `Press start to play`;
-  gameArray = [];
-  matchArray = true;
-  round = 1;
-  blinkCheck = 0;
-  compTurn = true;
-  winner = false;
-  blink = 0;
-  clearInterval(interval);
+  solutionSequence = [];
+  currentRound = 1;
+  solutionSequenceIndex = 0;
+  roundBlinkCount = 0;
+  isWinner = false;
+  clearInterval(roundInterval);
 }
 
-function play() {
-  if (round === 1) {
-    getRandomColor();
+
+function playGameSequence() {
+  msgEl.innerHTML = "Follow the colors!";
+  if (currentRound === 1) {
+    generateSolutionSequence();
   }
-  interval = setInterval(gameTurn, tempoTwo);
-  getHighScore();
+  roundInterval = setInterval(playGameBlink, blinkGapDuration);
 }
 
-function getRandomColor() {
-  for (let i = 0; i < 20; i++) {
-    gameArray.push(Math.floor(Math.random() * 4) + 1);
-  }
-}
+function playGameBlink() {
+  handleBlink();
+  roundBlinkCount++;
 
-function gameTurn() {
-  if (compTurn) {
-    handleBlink();
-    msgEl.innerHTML = "Follow the colors!";
-    blink++;
-  }
-
-  if (blink === round) {
-    clearInterval(interval);
-    blink = 0;
-    startPlayerTurn();
+  if (roundBlinkCount === currentRound) {
+    endGameTurn();
   }
 }
 
+function endGameTurn() {
+  clearInterval(roundInterval);
+  roundBlinkCount = 0;
+  startPlayerTurn();
+}
+
+function generateSolutionSequence() {
+  for (let i = 0; i < 6; i++) {
+    solutionSequence.push(Math.floor(Math.random() * 4) + 1);
+  }
+}
+//Function handles which colors flashes based on the number given
 function handleBlink() {
-  if (gameArray[blink] === 1) {
-    blinkButton(1);
-  } else if (gameArray[blink] === 2) {
-    blinkButton(2);
-  } else if (gameArray[blink] === 3) {
-    blinkButton(3);
+  if (solutionSequence[roundBlinkCount] === 1) {
+    handleButtonBlink(1);
+  } else if (solutionSequence[roundBlinkCount] === 2) {
+    handleButtonBlink(2);
+  } else if (solutionSequence[roundBlinkCount] === 3) {
+    handleButtonBlink(3);
   } else {
-    blinkButton(4);
+    handleButtonBlink(4);
   }
 }
-
-function blinkButton(buttonNum) {
+//Function takes care of the color flash, sound play, and sound volume, and tempo.  
+function handleButtonBlink(buttonNum) {
   if (buttonNum === 1) {
-    circleOne.style.backgroundColor = "rgb(76, 116, 247)";
+    blueSimonButton.style.backgroundColor = "rgb(76, 116, 247)";
     sound.volume = 0.2;
     sound.play();
-    //simon.play();
     setTimeout(function () {
-      circleOne.style.backgroundColor = "rgb(6, 34, 126)";
-    }, tempo);
+      blueSimonButton.style.backgroundColor = "rgb(6, 34, 126)";
+    }, blinkDuration);
   } else if (buttonNum === 2) {
-    circleTwo.style.backgroundColor = "rgb(77, 165, 96)";
+    greenSimonButton.style.backgroundColor = "rgb(77, 165, 96)";
     sound.volume = 0.2;
     sound.play();
-    //simon.play();
     setTimeout(function () {
-      circleTwo.style.backgroundColor = "rgb(24, 90, 38)";
-    }, tempo);
+      greenSimonButton.style.backgroundColor = "rgb(24, 90, 38)";
+    }, blinkDuration);
   } else if (buttonNum === 3) {
-    circleThree.style.backgroundColor = "rgb(230, 97, 97)";
+    redSimonButton.style.backgroundColor = "rgb(230, 97, 97)";
     sound.volume = 0.2;
-    //simonSound.play();
     sound.play();
-    //simon.play();
     setTimeout(function () {
-      circleThree.style.backgroundColor = "rgb(163, 10, 10)";
-    }, tempo);
+      redSimonButton.style.backgroundColor = "rgb(163, 10, 10)";
+    }, blinkDuration);
   } else {
-    circleFour.style.backgroundColor = "rgb(243, 243, 106)";
+    yellowSimonButton.style.backgroundColor = "rgb(243, 243, 106)";
     sound.volume = 0.2;
     sound.play();
-    //simon.play();
     setTimeout(function () {
-      circleFour.style.backgroundColor = "rgb(185, 185, 11)";
-    }, tempo);
+      yellowSimonButton.style.backgroundColor = "rgb(185, 185, 11)";
+    }, blinkDuration);
   }
 }
-
+//start player turn, enables color buttons 
 function startPlayerTurn() {
   setTimeout(function () {
     msgEl.innerHTML = `Press the correct colors!`;
@@ -174,104 +169,108 @@ function startPlayerTurn() {
     simonButtons[i].removeAttribute("disabled");
   }
 }
-
+//End players turn, disables color buttons, give messages at certain points of the game
+//give a win message at the end of the game.  Switches to comp turn
 function endPlayerTurn() {
-  for (let i = 0; i < simonButtons.length; i++) {
-    simonButtons[i].setAttribute("disabled", true);
-  }
-  setTimeout(function () {
-    if (round === gameArray.length - 5) {
-      msgEl.innerHTML = `Good Job! You got ${round - 1} in a row!!`;
-    } else if (round === gameArray.length - 1) {
-      msgEl.innerHTML = `Congratulations! You're memory is no match for this game!
-      Press restart to try again!`;
-      endGame();
-    }
-  }, 1200);
-  blinkCheck = 0;
-  compTurn = true;
-  round++;
+  disableButtons();
   currentScore++;
-  play();
-}
-
-// Circle Buttons
-
-function handleSimonButton(buttonNum) {
-  blinkButton(buttonNum);
-  if (gameArray[blinkCheck] !== buttonNum) {
-    msgEl.innerHTML = `Wrong answer! Press restart to try again!`;
-    return;
+  if (currentRound === solutionSequence.length - 5) {
+    setTimeout(function () {
+      msgEl.innerHTML = `Good Job! You got ${currentScore} in a row!!`;
+    }, 1000)
+  } else if (currentRound === solutionSequence.length - 1) {
+    isWinner = true
+    endGame();
   }
 
-  if (blinkCheck === round - 1) {
+  currentRound++;
+  if (currentScore > highScore) {
     setHighScore(currentScore);
+    highScoreElement.innerHTML = currentScore;
+  }
+
+  currentScoreElement.innerHTML = currentScore;
+  solutionSequenceIndex = 0;
+  playGameSequence();
+}
+
+// Function handles the color buttons right or wrong.  If correct turns player turn
+// off and starts comp turn
+
+function handleSimonButtonClick(buttonNum) {
+  handleButtonBlink(buttonNum);
+  if (solutionSequence[solutionSequenceIndex] !== buttonNum) {
+    endGame()
+  }
+
+  if (solutionSequenceIndex === currentScore) {
     endPlayerTurn();
-    score.innerHTML = round - 1;
   } else {
-    blinkCheck++;
+    solutionSequenceIndex++;
   }
 }
 
+blueSimonButton.addEventListener("click", function () {
+  handleSimonButtonClick(1);
+});
+greenSimonButton.addEventListener("click", function () {
+  handleSimonButtonClick(2);
+});
+redSimonButton.addEventListener("click", function () {
+  handleSimonButtonClick(3);
+});
+yellowSimonButton.addEventListener("click", function () {
+  handleSimonButtonClick(4);
+});
+
+//Function holds the most recent high score
 function getHighScore() {
-  localStorage.getItem("highScores");
+  return localStorage.getItem("highScore");
 }
-
-highScoreBoard.innerHTML = highScoreElement;
-
+//Put the high score on the page
+//function set the local storage and checks to see if there is a higher round
 function setHighScore(currentScore) {
-  if (currentScore > highScoreElement) {
-    localStorage.setItem("highScores", currentScore);
+  if (currentScore + 1 > highScore) {
+    localStorage.setItem("highScore", currentScore);
   }
 }
 
-circleOne.addEventListener("click", function () {
-  handleSimonButton(1);
-});
-circleTwo.addEventListener("click", function () {
-  handleSimonButton(2);
-});
-circleThree.addEventListener("click", function () {
-  handleSimonButton(3);
-});
-circleFour.addEventListener("click", function () {
-  handleSimonButton(4);
-});
-
-function mediumTempo() {
-  tempoTwo = 1200;
-  if (round < 3 && round < 6) {
-    tempo = 900;
-  } else if (round > 6 && round < 10) {
-    tempo = 700;
+//Function in control of the medium difficulty setting the tempo and tempoTwo for the game
+function setMediumTempo() {
+  blinkGapDuration = 1200;
+  if (currentRound < 3 && currentRound < 6) {
+    blinkDuration = 900;
+  } else if (currentRound > 6 && currentRound < 10) {
+    blinkDuration = 700;
   } else {
-    tempo = 400;
+    blinkDuration = 400;
   }
 }
-
-function hardTempo() {
-  tempoTwo = 1000;
-  if (round < 6) {
-    tempo = 600;
-  } else if (round >= 6 && round < 11) {
-    tempo = 500;
+//Function in control of the hard difficulty
+function setHardTempo() {
+  blinkGapDuration = 1000;
+  if (currentRound < 6) {
+    blinkDuration = 600;
+  } else if (currentRound >= 6 && currentRound < 11) {
+    blinkDuration = 500;
   } else {
-    tempo = 400;
+    blinkDuration = 400;
   }
 }
-
+//Function ends the game, disabling the color buttons when game is ended
+//and puts setting back to all square
 function endGame() {
+  disableButtons();
+  if (isWinner) {
+    msgEl.innerHTML = `Congratulations! You're memory is too great for this game!
+    Press restart and play again!`;
+  } else {
+    msgEl.innerHTML = `Wrong answer! Press restart to try again!`;
+  }
+}
+
+function disableButtons() {
   for (let i = 0; i < simonButtons.length; i++) {
     simonButtons[i].setAttribute("disabled", true);
   }
-  compTurn = false;
-  gameArray = [];
-  matchArray = true;
-  round = 1;
-  blinkCheck = 0;
-  winner = false;
-  blink = 0;
-  currentScore = 0;
-  clearInterval(interval);
-  return;
 }

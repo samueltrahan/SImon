@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
     <script defer src="js/main.js"></script>
     <title>Simon</title>
@@ -28,15 +26,15 @@
         <button id="hard" class="btn">Hard</button>
     </div>
 
-    <div id="resetDiv" class="hidden game-button">
-        <button id="resetBtn" class="btn">Restart</button>
+    <div id="restartDiv" class="hidden game-button">
+        <button id="restartBtn" class="btn">Restart</button>
     </div>
 
     <div class="board">
-        <button id="cir1" class="circle-button" type="submit" disabled></button>
-        <button id="cir2" class="circle-button" type="submit" disabled></button>
-        <button id="cir3" class="circle-button" type="submit" disabled></button>
-        <button id="cir4" class="circle-button" type="submit" disabled></button>
+        <button id="blue-simon-button" class="simon-button" type="submit" disabled></button>
+        <button id="green-simon-button" class="simon-button" type="submit" disabled></button>
+        <button id="red-simon-button" class="simon-button" type="submit" disabled></button>
+        <button id="yellow-simon-button" class="simon-button" type="submit" disabled></button>
         <div id="scoreBoard">
             <section>Score</section>
             <section id="score">0</section>

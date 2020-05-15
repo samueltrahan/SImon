@@ -18,11 +18,11 @@ A game of flashing colors in which the player must repeat random sequences of co
 
 ### _Technologies Used_
 
-HTML
-CSS
-JAVASCRIPT
-GitHub
-Google Fonts
+HTML <br>
+CSS<br>
+JAVASCRIPT<br>
+GitHub<br>
+Google Fonts<br>
 
 ------
 
@@ -53,6 +53,7 @@ The user picks a difficulty, the game starts when a difficulty is selected.  The
 - Give the game a theme to choose before difficulty is selected
 - Make more than one light flash for harder difficulties
 - Add music to the background.
+- Message announcing new high score
   
 
   -----
