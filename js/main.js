@@ -1,5 +1,6 @@
 //Audio files
 const sound = new Audio("audio/robotbleep2.wav");
+const yahoo = new Audio("audio/yahoo.wav");
 
 // state variable //
 const solutionSequence = [];
@@ -178,7 +179,7 @@ function endPlayerTurn() {
     setTimeout(function () {
       msgEl.innerHTML = `Good Job! You got ${currentScore} in a row!!`;
     }, 1000)
-  } else if (currentRound === solutionSequence.length - 1) {
+  } else if (currentRound === solutionSequence.length) {
     isWinner = true
     endGame();
   }
@@ -264,6 +265,7 @@ function endGame() {
   if (isWinner) {
     msgEl.innerHTML = `Congratulations! You're memory is too great for this game!
     Press restart and play again!`;
+    yahoo.play();
   } else {
     msgEl.innerHTML = `Wrong answer! Press restart to try again!`;
   }

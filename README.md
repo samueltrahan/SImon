@@ -36,7 +36,7 @@ The user picks a difficulty, the game starts when a difficulty is selected.  The
 ## _ScreenShots_
 
 
-![](/images/Simon-openpage.png) ![](images/Simon-winscreen.png)
+![](/images/Simon-openpage.png) ![](/images/screenshots.png);
 
 
 
