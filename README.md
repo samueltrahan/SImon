@@ -30,7 +30,7 @@ Google Fonts<br>
 
 The user picks a difficulty, the game starts when a difficulty is selected.  The game will start with a random color being flashed to the user, the user must press the color that was flashed for the game to continue.  After each round completed the number of colors flashed increases by one.  The game ends when the user cannot repeat the color sequence back, or reaches the end of the color sequence.
 
-## Click [here]() to play the game.
+## Click [here](https://samueltrahan.github.io/SImon/) to play the game.
 -----
 
 ## _ScreenShots_
