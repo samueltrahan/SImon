@@ -69,22 +69,21 @@ hardElement.addEventListener("click", function () {
 
 
 // Reset Button
-restartBtn.addEventListener("click", function () {
-  restartDiv.setAttribute("class", "hidden");
-  startDiv.setAttribute("class", "game-button");
-  score.innerHTML = 0;
-  restart();
-});
+restartBtn.addEventListener("click", restart);
 
 
 
 function restart() {
   msgEl.innerHTML = `Press start to play`;
+  restartDiv.setAttribute("class", "hidden");
+  startDiv.setAttribute("class", "game-button");
+  score.innerHTML = 0;
   solutionSequence = [];
   currentRound = 1;
   solutionSequenceIndex = 0;
   roundBlinkCount = 0;
   isWinner = false;
+  currentScore = 0;
   clearInterval(roundInterval);
 }
 
@@ -113,7 +112,7 @@ function endGameTurn() {
 }
 
 function generateSolutionSequence() {
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 4; i++) {
     solutionSequence.push(Math.floor(Math.random() * 4) + 1);
   }
 }
@@ -175,7 +174,7 @@ function startPlayerTurn() {
 function endPlayerTurn() {
   disableButtons();
   currentScore++;
-  if (currentScore === solutionSequence.length - 5) {
+  if (currentScore === solutionSequence.length - 2) {
     setTimeout(function () {
       msgEl.innerHTML = `Good Job! You got ${currentScore} in a row!!`;
     }, 1000)
