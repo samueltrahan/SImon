@@ -45,6 +45,8 @@ The user picks a difficulty, the game starts when a difficulty is selected.  The
 
 ![](/images/simon.png)
 
+You can check out my [Trello](https://trello.com/b/2cF3QfNE/simon) Board.
+
 ------
 
 ## _Improvements_

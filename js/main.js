@@ -3,7 +3,7 @@ const sound = new Audio("audio/robotbleep2.wav");
 const yahoo = new Audio("audio/yahoo.wav");
 
 // state variable //
-const solutionSequence = [];
+let solutionSequence = [];
 let solutionSequenceIndex = 0;
 let roundBlinkCount = 0;
 let roundInterval;
@@ -175,12 +175,13 @@ function startPlayerTurn() {
 function endPlayerTurn() {
   disableButtons();
   currentScore++;
-  if (currentRound === solutionSequence.length - 5) {
+  if (currentScore === solutionSequence.length - 5) {
     setTimeout(function () {
       msgEl.innerHTML = `Good Job! You got ${currentScore} in a row!!`;
     }, 1000)
-  } else if (currentRound === solutionSequence.length) {
+  } else if (currentScore === solutionSequence.length) {
     isWinner = true
+
     endGame();
   }
 
