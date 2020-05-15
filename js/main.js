@@ -180,8 +180,7 @@ function endPlayerTurn() {
     }, 1000)
   } else if (currentScore === solutionSequence.length) {
     isWinner = true
-
-    endGame();
+    return endGame();
   }
 
   currentRound++;
