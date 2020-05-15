@@ -174,6 +174,10 @@ function startPlayerTurn() {
 function endPlayerTurn() {
   disableButtons();
   currentScore++;
+  if (currentScore > highScore) {
+    setHighScore(currentScore);
+    highScoreElement.innerHTML = currentScore;
+  }
   if (currentScore === solutionSequence.length - 2) {
     setTimeout(function () {
       msgEl.innerHTML = `Good Job! You got ${currentScore} in a row!!`;
@@ -184,10 +188,6 @@ function endPlayerTurn() {
   }
 
   currentRound++;
-  if (currentScore > highScore) {
-    setHighScore(currentScore);
-    highScoreElement.innerHTML = currentScore;
-  }
 
   currentScoreElement.innerHTML = currentScore;
   solutionSequenceIndex = 0;
