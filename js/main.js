@@ -112,7 +112,7 @@ function endGameTurn() {
 }
 
 function generateSolutionSequence() {
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 6; i++) {
     solutionSequence.push(Math.floor(Math.random() * 4) + 1);
   }
 }
